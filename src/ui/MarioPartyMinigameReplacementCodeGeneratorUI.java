@@ -93,6 +93,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         generateCode.addActionListener(this);
         panel.add(generateCode, gbc);
 
+        gbc.gridy = 9;
+        JButton generatePackButton = new JButton("Open Minigame Pack Editor");
+        generatePackButton.addActionListener(e -> openMinigamePackEditor());
+        panel.add(generatePackButton, gbc);
+
         add(panel);
 
         updateMinigames();
@@ -174,13 +179,105 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         return null;
     }
 
+    private void openMinigamePackEditor() {
+        selectedGame = (String) marioPartyGameDropdown.getSelectedItem();
+        if (selectedGame == null || !minigameMap.containsKey(selectedGame)) {
+            JOptionPane.showMessageDialog(this, "Please select a valid Mario Party game.");
+            return;
+        }
+
+        Minigame[] minigames = minigameMap.get(selectedGame);
+
+        Map<Integer, java.util.List<Minigame>> categoryMap = new HashMap<>();
+        for (Minigame m : minigames) {
+            categoryMap.computeIfAbsent(m.getCategory(), k -> new java.util.ArrayList<>()).add(m);
+        }
+
+        JFrame packEditorFrame = new JFrame("Minigame Pack Editor - " + selectedGame);
+        packEditorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+        Map<Minigame, JComboBox<String>> replacementSelectors = new HashMap<>();
+
+        for (Map.Entry<Integer, java.util.List<Minigame>> entry : categoryMap.entrySet()) {
+            int category = entry.getKey();
+            java.util.List<Minigame> categoryMinigames = entry.getValue();
+
+            JPanel categoryPanel = new JPanel(new BorderLayout());
+            categoryPanel.setBorder(BorderFactory.createTitledBorder(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(category)));
+
+            JPanel grid = new JPanel(new GridLayout(categoryMinigames.size(), 2, 10, 5));
+
+            for (Minigame originalMinigame : categoryMinigames) {
+                JLabel originalLabel = new JLabel(originalMinigame.getName());
+
+                JComboBox<String> replacementDropdown = new JComboBox<>(MinigameConstants.getNames(categoryMinigames.toArray(new Minigame[0])));
+                replacementDropdown.setSelectedItem(originalMinigame.getName());
+                replacementSelectors.put(originalMinigame, replacementDropdown);
+
+                grid.add(originalLabel);
+                grid.add(replacementDropdown);
+            }
+
+            categoryPanel.add(grid, BorderLayout.CENTER);
+            mainPanel.add(categoryPanel);
+        }
+
+        JButton generatePackButton = new JButton("Generate Pack Codes");
+        generatePackButton.addActionListener(e -> {
+            generatePackCodesFromSelections(selectedGame, replacementSelectors);
+            packEditorFrame.dispose();
+        });
+
+        mainPanel.add(generatePackButton);
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setPreferredSize(new Dimension(700, 500));
+
+        packEditorFrame.add(scrollPane);
+        packEditorFrame.pack();
+        packEditorFrame.setLocationRelativeTo(this);
+        packEditorFrame.setVisible(true);
+    }
+
+    private void generatePackCodesFromSelections(String game, Map<Minigame, JComboBox<String>> replacementSelectors) {
+        try {
+            for (Map.Entry<Minigame, JComboBox<String>> entry : replacementSelectors.entrySet()) {
+                Minigame oldMinigame = entry.getKey();
+                String newMinigameName = (String) entry.getValue().getSelectedItem();
+
+                Minigame newMinigame = null;
+                for (Minigame m : minigameMap.get(game)) {
+                    if (m.getName().equals(newMinigameName)) {
+                        newMinigame = m;
+                        break;
+                    }
+                }
+
+                if (newMinigame != null && isDifferentMinigame(oldMinigame, newMinigame)) {
+                    CodeGenerator.generateCode(game, oldMinigame, newMinigame);
+                }
+            }
+
+            JOptionPane.showMessageDialog(this, "Minigame pack codes generated successfully!");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error generating minigame pack code: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private boolean isDifferentMinigame(Minigame oldMinigame, Minigame newMinigame) {
+        return oldMinigame.getId() != newMinigame.getId();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == generateCode) {
             Minigame oldMinigame = getSelectedOldMinigame();
             Minigame newMinigame = getSelectedNewMinigame();
-            if (oldMinigame != null && newMinigame != null) {
+            if (oldMinigame != null && newMinigame != null && isDifferentMinigame(oldMinigame, newMinigame)) {
                 CodeGenerator.generateCode(selectedGame, oldMinigame, newMinigame);
             } else {
                 JOptionPane.showMessageDialog(this, "Please select valid minigames.");
