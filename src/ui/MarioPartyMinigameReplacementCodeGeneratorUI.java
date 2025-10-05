@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.List;
 
 public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame implements ActionListener {
     private JComboBox<String> marioPartyGameDropdown;
@@ -25,6 +26,8 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
     private Minigame[] currentOldMinigames;
     private Minigame[] currentNewMinigames;
+
+    private JCheckBox allowAllMinigamesCheckbox;
 
     public MarioPartyMinigameReplacementCodeGeneratorUI() {
         setTitle("Mario Party Minigame Replacement Code Generator");
@@ -93,6 +96,10 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         panel.add(generateCode, gbc);
 
         gbc.gridy = 9;
+        allowAllMinigamesCheckbox = new JCheckBox("All minigames selectable for replacement in packs");
+        panel.add(allowAllMinigamesCheckbox, gbc);
+
+        gbc.gridy = 10;
         JButton generatePackButton = new JButton("Open Minigame Pack Editor");
         generatePackButton.addActionListener(e -> openMinigamePackEditor());
         panel.add(generatePackButton, gbc);
@@ -187,10 +194,14 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
         Minigame[] minigames = minigameMap.get(selectedGame);
 
+        boolean allowAll = allowAllMinigamesCheckbox.isSelected();
+
         Map<Integer, java.util.List<Minigame>> categoryMap = new HashMap<>();
         for (Minigame m : minigames) {
             categoryMap.computeIfAbsent(m.getCategory(), k -> new java.util.ArrayList<>()).add(m);
         }
+
+        String[] allMinigameNames = allowAll ? MinigameConstants.getNames(minigames) : null;
 
         JFrame packEditorFrame = new JFrame("Minigame Pack Editor - " + selectedGame);
         packEditorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -200,9 +211,9 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
         Map<Minigame, JComboBox<String>> replacementSelectors = new HashMap<>();
 
-        for (Map.Entry<Integer, java.util.List<Minigame>> entry : categoryMap.entrySet()) {
+        for (Map.Entry<Integer, List<Minigame>> entry : categoryMap.entrySet()) {
             int category = entry.getKey();
-            java.util.List<Minigame> categoryMinigames = entry.getValue();
+            List<Minigame> categoryMinigames = entry.getValue();
 
             JPanel categoryPanel = new JPanel(new BorderLayout());
             categoryPanel.setBorder(BorderFactory.createTitledBorder(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(category)));
@@ -212,7 +223,8 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             for (Minigame originalMinigame : categoryMinigames) {
                 JLabel originalLabel = new JLabel(originalMinigame.getName());
 
-                JComboBox<String> replacementDropdown = new JComboBox<>(MinigameConstants.getNames(categoryMinigames.toArray(new Minigame[0])));
+                String[] replacementOptions = allowAll ? allMinigameNames : MinigameConstants.getNames(categoryMinigames.toArray(new Minigame[0]));
+                JComboBox<String> replacementDropdown = new JComboBox<>(replacementOptions);
                 replacementDropdown.setSelectedItem(originalMinigame.getName());
                 replacementSelectors.put(originalMinigame, replacementDropdown);
 
@@ -224,7 +236,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             mainPanel.add(categoryPanel);
         }
 
-        JButton generatePackButton = new JButton("Generate Pack Codes");
+        JButton generatePackButton = new JButton("Generate Pack Code");
         generatePackButton.addActionListener(e -> {
             generatePackCodesFromSelections(selectedGame, replacementSelectors);
             packEditorFrame.dispose();

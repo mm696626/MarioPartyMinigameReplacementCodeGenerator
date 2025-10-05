@@ -7,7 +7,7 @@ public class MinigameCategoryUIConstants {
 
     public static final String[] CATEGORY_NAMES = {
             "All",
-            "Four Player",
+            "4 Player",
             "1v3",
             "2v2",
             "Battle",
@@ -27,7 +27,7 @@ public class MinigameCategoryUIConstants {
 
     public static final Map<Integer, String> MINIGAME_CATEGORY_MAP = new HashMap<>() {{
         put(-1, "All");
-        put(0, "Four Player");
+        put(0, "4 Player");
         put(1, "1v3");
         put(2, "2v2");
         put(3, "Battle");
