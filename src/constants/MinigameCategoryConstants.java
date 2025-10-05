@@ -1,4 +1,4 @@
-package ui;
+package constants;
 
 public class MinigameCategoryConstants {
 

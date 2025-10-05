@@ -1,5 +1,8 @@
+package constants;
+
 import ui.Minigame;
-import ui.MinigameCategoryConstants;
+
+import java.util.Arrays;
 
 public class MinigameConstants {
 
@@ -401,4 +404,14 @@ public class MinigameConstants {
             new Minigame(76, "Treacherous Tightrope", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME)
     };
 
+    public static String[] getNames(Minigame[] minigameList) {
+        String[] names = new String[minigameList.length];
+
+        for (int i=0; i<minigameList.length; i++) {
+            names[i] = minigameList[i].getName();
+        }
+
+        Arrays.sort(names);
+        return names;
+    }
 }
