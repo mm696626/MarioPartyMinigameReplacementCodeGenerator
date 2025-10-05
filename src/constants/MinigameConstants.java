@@ -2,8 +2,6 @@ package constants;
 
 import ui.Minigame;
 
-import java.util.Arrays;
-
 public class MinigameConstants {
 
     public static final Minigame[] MARIO_PARTY_4_MINIGAMES = {
@@ -316,7 +314,6 @@ public class MinigameConstants {
             new Minigame(82, "Spin Off", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
             new Minigame(83, "Rope a Dope", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
             new Minigame(84, "Duct & Cover", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
-            new Minigame(85, "Mic Space Minigame", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(86, "Bowser's Lovely Lift!", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(88, "Mathemortican", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(89, "Bob-ombic Plague", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
