@@ -13,4 +13,4 @@ A tool to generate minigame replacement Gecko codes for Mario Parties 4-8
 * Mario Party 8 Replacement Codes: gamemasterplc
 
 ### Note
-* **These codes are only for the US version**
+**These codes are only for the US version**
