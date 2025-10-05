@@ -8,10 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame implements ActionListener {
     private JComboBox<String> marioPartyGameDropdown;
@@ -243,6 +242,9 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
     private void generatePackCodesFromSelections(String game, Map<Minigame, JComboBox<String>> replacementSelectors) {
         try {
+            ArrayList<String> codeBlocks = new ArrayList<>();
+            ArrayList<String> replacements = new ArrayList<>();
+
             for (Map.Entry<Minigame, JComboBox<String>> entry : replacementSelectors.entrySet()) {
                 Minigame oldMinigame = entry.getKey();
                 String newMinigameName = (String) entry.getValue().getSelectedItem();
@@ -256,11 +258,28 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 }
 
                 if (newMinigame != null && isDifferentMinigame(oldMinigame, newMinigame)) {
-                    CodeGenerator.generateCode(game, oldMinigame, newMinigame);
+                    String code = CodeGenerator.writeRawCode(game, oldMinigame, newMinigame);
+                    codeBlocks.add(code);
+                    replacements.add("* " + oldMinigame.getName() + " ➜ " + newMinigame.getName());
                 }
             }
 
-            JOptionPane.showMessageDialog(this, "Minigame pack codes generated successfully!");
+            if (!codeBlocks.isEmpty()) {
+                try (PrintWriter writer = new PrintWriter(new FileOutputStream(CodeGenerator.getFileName(game), true))) {
+                    writer.println("$" + selectedGame + " Custom Minigame Pack");
+
+                    for (String code : codeBlocks) {
+                        writer.print(code);
+                    }
+
+                    writer.println();
+                    for (String replacement : replacements) {
+                        writer.println(replacement);
+                    }
+                }
+            }
+
+            JOptionPane.showMessageDialog(this, "Minigame pack code generated successfully!");
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error generating minigame pack code: " + ex.getMessage());
@@ -279,6 +298,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             Minigame newMinigame = getSelectedNewMinigame();
             if (oldMinigame != null && newMinigame != null && isDifferentMinigame(oldMinigame, newMinigame)) {
                 CodeGenerator.generateCode(selectedGame, oldMinigame, newMinigame);
+                JOptionPane.showMessageDialog(this, "Minigame replacement code generated successfully!");
             } else {
                 JOptionPane.showMessageDialog(this, "Please select valid minigames.");
             }
