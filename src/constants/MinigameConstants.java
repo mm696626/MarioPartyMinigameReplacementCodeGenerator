@@ -411,7 +411,6 @@ public class MinigameConstants {
             names[i] = minigameList[i].getName();
         }
 
-        Arrays.sort(names);
         return names;
     }
 }

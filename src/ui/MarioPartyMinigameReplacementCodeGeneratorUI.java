@@ -1,6 +1,8 @@
 package ui;
 
+import constants.MinigameCategoryUIConstants;
 import constants.MinigameConstants;
+import io.CodeGenerator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,45 +18,14 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
     private JComboBox<String> oldMinigameDropdown;
     private JComboBox<String> newMinigameDropdown;
     private JComboBox<String> categoryFilterDropdown;
-
-    private static final String[] CATEGORY_NAMES = {
-            "All",
-            "Four Player",
-            "1v3",
-            "2v2",
-            "Battle",
-            "Duel",
-            "Bowser",
-            "DK",
-            "Story",
-            "Extra",
-            "8 Player",
-            "1 Player",
-            "1 Player Bowser",
-            "1 Player DK"
-    };
-
-    private static final Map<Integer, String> MINIGAME_CATEGORY_MAP = new HashMap<>() {{
-        put(-1, "All");
-        put(0, "Four Player");
-        put(1, "1v3");
-        put(2, "2v2");
-        put(3, "Battle");
-        put(4, "Duel");
-        put(5, "Bowser");
-        put(6, "DK");
-        put(7, "Story");
-        put(8, "Extra");
-        put(9, "8 Player");
-        put(10, "1 Player");
-        put(11, "1 Player Bowser");
-        put(12, "1 Player DK");
-    }};
-
+    private String selectedGame;
 
     private JButton generateCode;
 
     private Map<String, Minigame[]> minigameMap;
+
+    private Minigame[] currentOldMinigames;
+    private Minigame[] currentNewMinigames;
 
     public MarioPartyMinigameReplacementCodeGeneratorUI() {
         setTitle("Mario Party Minigame Replacement Code Generator");
@@ -111,7 +82,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         panel.add(new JLabel("Filter by Category:"), gbc);
 
         gbc.gridy = 7;
-        categoryFilterDropdown = new JComboBox<>(CATEGORY_NAMES);
+        categoryFilterDropdown = new JComboBox<>(MinigameCategoryUIConstants.CATEGORY_NAMES);
         panel.add(categoryFilterDropdown, gbc);
 
         marioPartyGameDropdown.addActionListener(e -> updateMinigames());
@@ -133,35 +104,37 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
     }
 
     private void updateMinigames() {
-        String selectedGame = (String) marioPartyGameDropdown.getSelectedItem();
+        selectedGame = (String) marioPartyGameDropdown.getSelectedItem();
         String selectedCategory = (String) categoryFilterDropdown.getSelectedItem();
 
         if (selectedGame != null && minigameMap.containsKey(selectedGame)) {
-            Minigame[] allMinigames = minigameMap.get(selectedGame);
-
             if ("All".equals(selectedCategory)) {
-                oldMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(allMinigames)));
-                newMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(allMinigames)));
+                currentOldMinigames = minigameMap.get(selectedGame);
+                currentNewMinigames = minigameMap.get(selectedGame);
+                oldMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(currentOldMinigames)));
+                newMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(currentNewMinigames)));
                 return;
             }
 
-            int categoryIndex = java.util.Arrays.asList(CATEGORY_NAMES).indexOf(selectedCategory) - 1;
+            int categoryIndex = java.util.Arrays.asList(MinigameCategoryUIConstants.CATEGORY_NAMES).indexOf(selectedCategory) - 1;
 
             java.util.List<Minigame> filteredList = new java.util.ArrayList<>();
-            for (Minigame m : allMinigames) {
+            for (Minigame m : minigameMap.get(selectedGame)) {
                 if (m.getCategory() == categoryIndex) {
                     filteredList.add(m);
                 }
             }
 
-            Minigame[] filteredMinigames = filteredList.toArray(new Minigame[0]);
-            oldMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(filteredMinigames)));
-            newMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(filteredMinigames)));
+            currentOldMinigames = filteredList.toArray(new Minigame[0]);
+            currentNewMinigames = currentOldMinigames;
+
+            oldMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(currentOldMinigames)));
+            newMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(currentNewMinigames)));
         }
     }
 
     private void updateCategoryFilter() {
-        String selectedGame = (String) marioPartyGameDropdown.getSelectedItem();
+        selectedGame = (String) marioPartyGameDropdown.getSelectedItem();
         if (selectedGame == null || !minigameMap.containsKey(selectedGame)) return;
 
         Minigame[] minigames = minigameMap.get(selectedGame);
@@ -172,11 +145,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         }
 
         DefaultComboBoxModel<String> categoryModel = new DefaultComboBoxModel<>();
-        categoryModel.addElement(MINIGAME_CATEGORY_MAP.get(-1)); // "All"
+        categoryModel.addElement(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(-1)); // "All"
 
         for (int i = 0; i <= 12; i++) {
             if (categoriesPresent.contains(i)) {
-                categoryModel.addElement(MINIGAME_CATEGORY_MAP.get(i));
+                categoryModel.addElement(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(i));
             }
         }
         categoryFilterDropdown.setModel(categoryModel);
@@ -184,9 +157,33 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         categoryFilterDropdown.setSelectedIndex(0);
     }
 
+    private Minigame getSelectedOldMinigame() {
+        int index = oldMinigameDropdown.getSelectedIndex();
+        if (index >= 0 && index < currentOldMinigames.length) {
+            return currentOldMinigames[index];
+        }
+        return null;
+    }
+
+    private Minigame getSelectedNewMinigame() {
+        int index = newMinigameDropdown.getSelectedIndex();
+        if (index >= 0 && index < currentNewMinigames.length) {
+            return currentNewMinigames[index];
+        }
+        return null;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == generateCode) {
+            Minigame oldMinigame = getSelectedOldMinigame();
+            Minigame newMinigame = getSelectedNewMinigame();
+            if (oldMinigame != null && newMinigame != null) {
+                CodeGenerator.generateCode(selectedGame, oldMinigame, newMinigame);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select valid minigames.");
+            }
+        }
     }
 }
