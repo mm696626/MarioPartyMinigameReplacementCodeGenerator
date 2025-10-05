@@ -10,8 +10,8 @@ import java.io.PrintWriter;
 public class CodeGenerator {
 
     public static void generateCode(String selectedGame, Minigame oldMinigame, Minigame newMinigame) {
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream("generatedCodes.txt", true))) {
-            writer.println(writeGeneratedCode(selectedGame, oldMinigame, newMinigame));
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(getFileName(selectedGame), true))) {
+            writer.print(writeGeneratedCode(selectedGame, oldMinigame, newMinigame));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to write code to file: " + e.getMessage());
         }
@@ -51,5 +51,15 @@ public class CodeGenerator {
         }
 
         return code;
+    }
+
+    private static String getFileName(String selectedGame) {
+        return switch (selectedGame) {
+            case "Mario Party 4" -> "GMPE01.txt";
+            case "Mario Party 5" -> "GP5E01.txt";
+            case "Mario Party 6" -> "GP6E01.txt";
+            case "Mario Party 7" -> "GP7E01.txt";
+            default -> "RM8E01.txt";
+        };
     }
 }
