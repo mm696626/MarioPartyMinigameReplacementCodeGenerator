@@ -96,6 +96,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         add(panel);
 
         updateMinigames();
+        updateCategoryFilter();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -147,7 +148,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         DefaultComboBoxModel<String> categoryModel = new DefaultComboBoxModel<>();
         categoryModel.addElement(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(-1)); // "All"
 
-        for (int i = 0; i <= 12; i++) {
+        for (int i = 0; i <= MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.size() - 2; i++) {
             if (categoriesPresent.contains(i)) {
                 categoryModel.addElement(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(i));
             }

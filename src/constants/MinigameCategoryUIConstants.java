@@ -19,7 +19,10 @@ public class MinigameCategoryUIConstants {
             "8 Player",
             "1 Player",
             "1 Player Bowser",
-            "1 Player DK"
+            "1 Player DK",
+            "4 Player/Duel",
+            "2v2/Duel",
+            "Battle/Duel"
     };
 
     public static final Map<Integer, String> MINIGAME_CATEGORY_MAP = new HashMap<>() {{
@@ -37,5 +40,8 @@ public class MinigameCategoryUIConstants {
         put(10, "1 Player");
         put(11, "1 Player Bowser");
         put(12, "1 Player DK");
+        put(13, "4 Player/Duel");
+        put(14, "2v2/Duel");
+        put(15, "Battle/Duel");
     }};
 }

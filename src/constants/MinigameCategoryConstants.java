@@ -15,4 +15,7 @@ public class MinigameCategoryConstants {
     public static final int ONE_PLAYER_MINIGAME = 10;
     public static final int ONE_PLAYER_BOWSER_MINIGAME = 11;
     public static final int ONE_PLAYER_DK_MINIGAME = 12;
+    public static final int FOUR_PLAYER_DUEL_MINIGAME = 13; //literally only for the shared 4 Player/Duel minigames in 8
+    public static final int TWO_V_TWO_DUEL_MINIGAME = 14; //literally only for the shared 2v2/Duel minigames in 8
+    public static final int BATTLE_DUEL_MINIGAME = 15; //literally only for the shared Battle/Duel minigames in 8
 }
