@@ -25,29 +25,29 @@ public class CodeGenerator {
 
 
         if (selectedGame.equals("Mario Party 4")) {
-            code += "2818fd2c 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
-            code += "0218fd2c 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
-            code += "e2000001 80008000" + "\n";
+            code += "2818FD2C 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
+            code += "0218FD2C 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
+            code += "E2000001 80008000" + "\n";
         }
         else if (selectedGame.equals("Mario Party 5")) {
-            code += "2822a4c4 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
-            code += "0222a4c4 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
-            code += "e2000001 80008000" + "\n";
+            code += "2822A4C4 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
+            code += "0222A4C4 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
+            code += "E2000001 80008000" + "\n";
         }
         else if (selectedGame.equals("Mario Party 6")) {
-            code += "28265ba8 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
-            code += "02265ba8 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
-            code += "e2000001 80008000" + "\n";
+            code += "28265BA8 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
+            code += "02265BA8 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
+            code += "E2000001 80008000" + "\n";
         }
         else if (selectedGame.equals("Mario Party 7")) {
             code += "28291558 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
             code += "02291558 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
-            code += "e2000001 80008000" + "\n";
+            code += "E2000001 80008000" + "\n";
         }
         else {
-            code += "282287cc 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
-            code += "022287cc 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
-            code += "e2000001 80008000" + "\n";
+            code += "282287CC 000000" + String.format("%02X", oldMinigame.getId() - 1) + "\n";
+            code += "022287CC 000000" + String.format("%02X", newMinigame.getId() - 1) + "\n";
+            code += "E2000001 80008000" + "\n";
         }
 
         return code;
