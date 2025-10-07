@@ -1,7 +1,6 @@
 package ui;
 
 import constants.MinigameCategoryConstants;
-import constants.MinigameCategoryUIConstants;
 import constants.MinigameConstants;
 import io.CodeGenerator;
 
@@ -85,7 +84,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         panel.add(new JLabel("Filter by Category:"), gbc);
 
         gbc.gridy = 7;
-        categoryFilterDropdown = new JComboBox<>(MinigameCategoryUIConstants.CATEGORY_NAMES);
+        categoryFilterDropdown = new JComboBox<>(MinigameCategoryConstants.MINIGAME_CATEGORY_NAMES);
         panel.add(categoryFilterDropdown, gbc);
 
         marioPartyGameDropdown.addActionListener(e -> updateMinigames());
@@ -129,7 +128,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 return;
             }
 
-            int categoryIndex = Arrays.asList(MinigameCategoryUIConstants.CATEGORY_NAMES).indexOf(selectedCategory) - 1;
+            int categoryIndex = Arrays.asList(MinigameCategoryConstants.MINIGAME_CATEGORY_NAMES).indexOf(selectedCategory) - 1;
 
             List<Minigame> filteredList = new ArrayList<>();
             for (Minigame m : minigameMap.get(selectedGame)) {
@@ -183,11 +182,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         }
 
         DefaultComboBoxModel<String> categoryModel = new DefaultComboBoxModel<>();
-        categoryModel.addElement(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(-1));
+        categoryModel.addElement(MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(-1));
 
-        for (int i = 0; i <= MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.size() - 2; i++) {
+        for (int i = 0; i <= MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.size() - 2; i++) {
             if (categoriesPresent.contains(i)) {
-                categoryModel.addElement(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(i));
+                categoryModel.addElement(MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(i));
             }
         }
         categoryFilterDropdown.setModel(categoryModel);
@@ -240,7 +239,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             List<Minigame> categoryMinigames = entry.getValue();
 
             JPanel categoryPanel = new JPanel(new BorderLayout());
-            categoryPanel.setBorder(BorderFactory.createTitledBorder(MinigameCategoryUIConstants.MINIGAME_CATEGORY_MAP.get(category)));
+            categoryPanel.setBorder(BorderFactory.createTitledBorder(MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(category)));
 
             JPanel grid = new JPanel(new GridLayout(categoryMinigames.size(), 2, 10, 5));
 
