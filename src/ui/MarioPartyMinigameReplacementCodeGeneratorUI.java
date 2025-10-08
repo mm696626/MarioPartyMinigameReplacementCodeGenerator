@@ -237,7 +237,6 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         loadPanel.add(savedPacksDropdown);
         JButton loadSelectedButton = new JButton("Load Selected Pack");
         loadPanel.add(loadSelectedButton);
-
         mainPanel.add(loadPanel);
 
         File packDir = new File("saved_packs" + File.separator + selectedGame);
@@ -312,6 +311,10 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         });
         mainPanel.add(bulkReplacePanel, 0);
 
+        JCheckBox allowDuplicatesCheckbox = new JCheckBox("Allow duplicates when randomizing");
+        allowDuplicatesCheckbox.setSelected(true);
+        mainPanel.add(allowDuplicatesCheckbox, 1);
+
         for (Map.Entry<Integer, List<Minigame>> entry : categoryMap.entrySet()) {
             int category = entry.getKey();
             List<Minigame> categoryMinigames = entry.getValue();
@@ -352,6 +355,62 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             }
 
             categoryPanel.add(grid, BorderLayout.CENTER);
+
+            JButton randomizeButton = new JButton("Randomize Category");
+            randomizeButton.addActionListener(ev -> {
+                List<Minigame> minigamesInCategory = categoryMap.get(category);
+
+                List<Minigame> replacementPoolList;
+                if (allowAll) {
+                    replacementPoolList = new ArrayList<>(Arrays.asList(minigames));
+                } else {
+                    replacementPoolList = new ArrayList<>(minigamesInCategory);
+                    if ("Mario Party 8".equals(selectedGame)) {
+                        int categoryId = category;
+                        for (Minigame m : minigames) {
+                            int duelCat = m.getCategory();
+                            if (categoryId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME && duelCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                                replacementPoolList.add(m);
+                            }
+                            if (categoryId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME && duelCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                                replacementPoolList.add(m);
+                            }
+                            if (categoryId == MinigameCategoryConstants.BATTLE_MINIGAME && duelCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                                replacementPoolList.add(m);
+                            }
+                        }
+                    }
+                }
+
+                Random rand = new Random();
+                boolean allowDuplicates = allowDuplicatesCheckbox.isSelected();
+
+                if (allowDuplicates) {
+                    for (Minigame original : minigamesInCategory) {
+                        JComboBox<String> combo = replacementSelectors.get(original);
+                        if (combo != null && !replacementPoolList.isEmpty()) {
+                            Minigame replacement = replacementPoolList.get(rand.nextInt(replacementPoolList.size()));
+                            combo.setSelectedItem(replacement.getName());
+                        }
+                    }
+                } else {
+                    if (replacementPoolList.size() < minigamesInCategory.size()) {
+                        JOptionPane.showMessageDialog(packEditorFrame, "Not enough unique minigames in category to randomize without duplicates.");
+                        return;
+                    }
+                    Collections.shuffle(replacementPoolList);
+                    for (int i = 0; i < minigamesInCategory.size(); i++) {
+                        Minigame original = minigamesInCategory.get(i);
+                        JComboBox<String> combo = replacementSelectors.get(original);
+                        if (combo != null) {
+                            Minigame replacement = replacementPoolList.get(i);
+                            combo.setSelectedItem(replacement.getName());
+                        }
+                    }
+                }
+            });
+            categoryPanel.add(randomizeButton, BorderLayout.SOUTH);
+
             mainPanel.add(categoryPanel);
         }
 
