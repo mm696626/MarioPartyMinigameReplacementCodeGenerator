@@ -557,6 +557,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
     private void generatePackCodesFromSelections(String game, Map<Minigame, JComboBox<String>> replacementSelectors) {
         try {
             ArrayList<String> codeBlocks = new ArrayList<>();
+            ArrayList<String> replacements = new ArrayList<>();
 
             for (Map.Entry<Minigame, JComboBox<String>> entry : replacementSelectors.entrySet()) {
                 Minigame oldMinigame = entry.getKey();
@@ -573,6 +574,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 if (newMinigame != null && isDifferentMinigame(oldMinigame, newMinigame)) {
                     String code = CodeGenerator.writeRawCode(game, oldMinigame, newMinigame);
                     codeBlocks.add(code);
+                    replacements.add("* " + oldMinigame.getName() + " ➜ " + newMinigame.getName());
                 }
             }
 
@@ -582,6 +584,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
                     for (String code : codeBlocks) {
                         writer.print(code);
+                    }
+
+                    writer.println();
+                    for (String replacement : replacements) {
+                        writer.println(replacement);
                     }
                 }
             }
