@@ -8,8 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -216,11 +218,8 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             JOptionPane.showMessageDialog(this, "Please select a valid Mario Party game.");
             return;
         }
-
         Minigame[] minigames = minigameMap.get(selectedGame);
-
         boolean allowAll = allowAllMinigamesCheckbox.isSelected();
-
         Map<Integer, List<Minigame>> categoryMap = new HashMap<>();
         for (Minigame m : minigames) {
             categoryMap.computeIfAbsent(m.getCategory(), k -> new ArrayList<>()).add(m);
@@ -232,58 +231,122 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+        JPanel loadPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        loadPanel.add(new JLabel("Load Saved Pack:"));
+        JComboBox<String> savedPacksDropdown = new JComboBox<>();
+        loadPanel.add(savedPacksDropdown);
+        JButton loadSelectedButton = new JButton("Load Selected Pack");
+        loadPanel.add(loadSelectedButton);
+
+        mainPanel.add(loadPanel);
+
+        File packDir = new File("saved_packs" + File.separator + selectedGame);
+        if (packDir.exists() && packDir.isDirectory()) {
+            String[] packFiles = packDir.list((dir, name) -> name.toLowerCase().endsWith(".json"));
+            if (packFiles != null) {
+                Arrays.sort(packFiles);
+                for (String f : packFiles) {
+                    savedPacksDropdown.addItem(f);
+                }
+            }
+        }
+
         Map<Minigame, JComboBox<String>> replacementSelectors = new HashMap<>();
+
+        JPanel bulkReplacePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        bulkReplacePanel.setBorder(BorderFactory.createTitledBorder("Bulk Replace Category Minigames"));
+
+        bulkReplacePanel.add(new JLabel("Select Category:"));
+        JComboBox<String> bulkCategoryDropdown = new JComboBox<>();
+
+        List<Integer> categoryKeys = new ArrayList<>(categoryMap.keySet());
+        categoryKeys.sort(Integer::compareTo);
+        for (Integer cat : categoryKeys) {
+            String catName = MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(cat);
+            bulkCategoryDropdown.addItem(catName);
+        }
+
+        bulkReplacePanel.add(bulkCategoryDropdown);
+
+        bulkReplacePanel.add(new JLabel("Replacement Minigame:"));
+        JComboBox<String> bulkReplacementDropdown = new JComboBox<>();
+        bulkReplacePanel.add(bulkReplacementDropdown);
+
+        bulkCategoryDropdown.addActionListener(ev -> {
+            int selectedIndex = bulkCategoryDropdown.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                int catId = categoryKeys.get(selectedIndex);
+                List<Minigame> replacements = categoryMap.get(catId);
+                if (allowAll) {
+                    replacements = new ArrayList<>(Arrays.asList(minigames));
+                }
+                String[] names = MinigameConstants.getNames(replacements.toArray(new Minigame[0]));
+                bulkReplacementDropdown.setModel(new DefaultComboBoxModel<>(names));
+                if (names.length > 0) {
+                    bulkReplacementDropdown.setSelectedIndex(0);
+                }
+            }
+        });
+        bulkCategoryDropdown.setSelectedIndex(0);
+
+        JButton setAllButton = new JButton("Set All In Category");
+        bulkReplacePanel.add(setAllButton);
+
+        setAllButton.addActionListener(ev -> {
+            int catIndex = bulkCategoryDropdown.getSelectedIndex();
+            if (catIndex < 0) {
+                JOptionPane.showMessageDialog(packEditorFrame, "Please select a category.");
+                return;
+            }
+            int catId = categoryKeys.get(catIndex);
+            String replacementName = (String) bulkReplacementDropdown.getSelectedItem();
+            if (replacementName == null) return;
+
+            List<Minigame> minigamesInCat = categoryMap.get(catId);
+            for (Minigame mg : minigamesInCat) {
+                JComboBox<String> combo = replacementSelectors.get(mg);
+                if (combo != null) {
+                    combo.setSelectedItem(replacementName);
+                }
+            }
+        });
+        mainPanel.add(bulkReplacePanel, 0);
 
         for (Map.Entry<Integer, List<Minigame>> entry : categoryMap.entrySet()) {
             int category = entry.getKey();
             List<Minigame> categoryMinigames = entry.getValue();
-
             JPanel categoryPanel = new JPanel(new BorderLayout());
             categoryPanel.setBorder(BorderFactory.createTitledBorder(MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(category)));
-
             JPanel grid = new JPanel(new GridLayout(categoryMinigames.size(), 2, 10, 5));
 
             for (Minigame originalMinigame : categoryMinigames) {
                 JLabel originalLabel = new JLabel(originalMinigame.getName());
-
                 Minigame[] replacementPool;
-
                 if (allowAll) {
                     replacementPool = minigames;
                 } else {
                     List<Minigame> replacements = new ArrayList<>(categoryMinigames);
-
                     if ("Mario Party 8".equals(selectedGame)) {
                         int categoryId = originalMinigame.getCategory();
-
                         for (Minigame m : minigames) {
                             int duelCat = m.getCategory();
-
-                            if (categoryId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
-                                    duelCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                            if (categoryId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME && duelCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
                                 replacements.add(m);
                             }
-
-                            if (categoryId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
-                                    duelCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                            if (categoryId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME && duelCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
                                 replacements.add(m);
                             }
-
-                            if (categoryId == MinigameCategoryConstants.BATTLE_MINIGAME &&
-                                    duelCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                            if (categoryId == MinigameCategoryConstants.BATTLE_MINIGAME && duelCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
                                 replacements.add(m);
                             }
                         }
                     }
-
                     replacementPool = replacements.toArray(new Minigame[0]);
                 }
-
                 String[] replacementOptions = MinigameConstants.getNames(replacementPool);
                 JComboBox<String> replacementDropdown = new JComboBox<>(replacementOptions);
                 replacementDropdown.setSelectedItem(originalMinigame.getName());
                 replacementSelectors.put(originalMinigame, replacementDropdown);
-
                 grid.add(originalLabel);
                 grid.add(replacementDropdown);
             }
@@ -292,20 +355,144 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             mainPanel.add(categoryPanel);
         }
 
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
         JButton generatePackButton = new JButton("Generate Pack Code");
         generatePackButton.addActionListener(e -> {
             generatePackCodesFromSelections(selectedGame, replacementSelectors);
-            packEditorFrame.dispose();
         });
 
-        mainPanel.add(generatePackButton);
+        JButton exportButton = new JButton("Export Pack to JSON");
+        exportButton.addActionListener(e -> exportPackToJson(replacementSelectors, selectedGame));
+
+        buttonPanel.add(generatePackButton);
+        buttonPanel.add(exportButton);
+
+        mainPanel.add(buttonPanel);
+
+        loadSelectedButton.addActionListener(e -> {
+            String selectedPack = (String) savedPacksDropdown.getSelectedItem();
+            if (selectedPack == null) {
+                JOptionPane.showMessageDialog(packEditorFrame, "Please select a pack to load.");
+                return;
+            }
+            File jsonFile = new File(packDir, selectedPack);
+            importPackFromJsonFile(jsonFile, replacementSelectors, selectedGame);
+        });
+
         JScrollPane scrollPane = new JScrollPane(mainPanel);
         scrollPane.setPreferredSize(new Dimension(700, 500));
-
         packEditorFrame.add(scrollPane);
         packEditorFrame.pack();
         packEditorFrame.setLocationRelativeTo(this);
         packEditorFrame.setVisible(true);
+    }
+
+    private void exportPackToJson(Map<Minigame, JComboBox<String>> selectors, String game) {
+        try {
+            File packDir = new File("saved_packs" + File.separator + game);
+            if (!packDir.exists()) {
+                packDir.mkdirs();
+            }
+
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            File outFile = new File(packDir, "pack_" + timeStamp + ".json");
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("{\n");
+            sb.append("  \"game\": \"").append(game).append("\",\n");
+            sb.append("  \"replacements\": {\n");
+
+            int count = 0;
+            int total = 0;
+
+            for (Map.Entry<Minigame, JComboBox<String>> entry : selectors.entrySet()) {
+                Minigame oldM = entry.getKey();
+                String newName = (String) entry.getValue().getSelectedItem();
+                if (!oldM.getName().equals(newName)) {
+                    total++;
+                }
+            }
+
+            for (Map.Entry<Minigame, JComboBox<String>> entry : selectors.entrySet()) {
+                Minigame oldM = entry.getKey();
+                String newName = (String) entry.getValue().getSelectedItem();
+                if (!oldM.getName().equals(newName)) {
+                    sb.append("    \"").append(escapeJson(oldM.getName())).append("\": \"")
+                            .append(escapeJson(newName)).append("\"");
+                    count++;
+                    if (count < total) sb.append(",");
+                    sb.append("\n");
+                }
+            }
+
+            sb.append("  }\n");
+            sb.append("}\n");
+
+            try (PrintWriter pw = new PrintWriter(outFile)) {
+                pw.write(sb.toString());
+            }
+
+            if (count == 0) {
+                JOptionPane.showMessageDialog(this, "No replacements were made — nothing to export.");
+                outFile.delete();
+            } else {
+                JOptionPane.showMessageDialog(this, "Pack exported successfully as:\n" + outFile.getName());
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error exporting JSON: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private void importPackFromJsonFile(File jsonFile, Map<Minigame, JComboBox<String>> selectors, String game) {
+        try {
+            Scanner sc = new Scanner(jsonFile);
+            StringBuilder json = new StringBuilder();
+            while (sc.hasNextLine()) json.append(sc.nextLine());
+            sc.close();
+
+            String content = json.toString();
+            int start = content.indexOf("\"replacements\"");
+            if (start == -1) throw new IllegalArgumentException("Invalid JSON format");
+            String replacements = content.substring(content.indexOf("{", start) + 1, content.indexOf("}", start));
+
+            for (Map.Entry<Minigame, JComboBox<String>> entry : selectors.entrySet()) {
+                entry.getValue().setSelectedItem(entry.getKey().getName());
+            }
+
+            for (String line : replacements.split(",")) {
+                line = line.trim();
+                if (line.isEmpty() || !line.contains(":")) continue;
+                String[] parts = line.split(":", 2);
+                String oldName = unquote(parts[0].trim());
+                String newName = unquote(parts[1].trim());
+
+                for (Map.Entry<Minigame, JComboBox<String>> entry : selectors.entrySet()) {
+                    Minigame m = entry.getKey();
+                    if (m.getName().equals(oldName)) {
+                        entry.getValue().setSelectedItem(newName);
+                        break;
+                    }
+                }
+            }
+
+            JOptionPane.showMessageDialog(this, "Pack imported successfully from:\n" + jsonFile.getName());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error importing JSON: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private String escapeJson(String s) {
+        return s.replace("\\", "\\\\").replace("\"", "\\\"");
+    }
+
+    private String unquote(String s) {
+        if (s.startsWith("\"") && s.endsWith("\"")) {
+            s = s.substring(1, s.length() - 1);
+        }
+        return s.replace("\\\"", "\"").replace("\\\\", "\\");
     }
 
     private void generatePackCodesFromSelections(String game, Map<Minigame, JComboBox<String>> replacementSelectors) {
