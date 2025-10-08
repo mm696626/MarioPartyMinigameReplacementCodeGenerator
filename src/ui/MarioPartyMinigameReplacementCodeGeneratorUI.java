@@ -275,10 +275,28 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             int selectedIndex = bulkCategoryDropdown.getSelectedIndex();
             if (selectedIndex >= 0) {
                 int catId = categoryKeys.get(selectedIndex);
-                List<Minigame> replacements = categoryMap.get(catId);
+                List<Minigame> replacements = new ArrayList<>(categoryMap.get(catId));
+
                 if (allowAll) {
                     replacements = new ArrayList<>(Arrays.asList(minigames));
+                } else if ("Mario Party 8".equals(selectedGame)) {
+                    for (Minigame m : minigames) {
+                        int duelCat = m.getCategory();
+                        if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
+                                duelCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
+                        if (catId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
+                                duelCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
+                        if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
+                                duelCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
+                    }
                 }
+
                 String[] names = MinigameConstants.getNames(replacements.toArray(new Minigame[0]));
                 bulkReplacementDropdown.setModel(new DefaultComboBoxModel<>(names));
                 if (names.length > 0) {
