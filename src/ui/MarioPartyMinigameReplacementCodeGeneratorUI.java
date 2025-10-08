@@ -454,8 +454,21 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 packDir.mkdirs();
             }
 
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            File outFile = new File(packDir, "pack_" + timeStamp + ".json");
+            String defaultName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String packName = JOptionPane.showInputDialog(
+                    this,
+                    "Enter a name for your pack:",
+                    "Name Your Pack",
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+            if (packName == null || packName.trim().isEmpty()) {
+                packName = "pack_" + defaultName;
+            }
+
+            packName = packName.replaceAll("[\\\\/:*?\"<>|]", "_");
+
+            File outFile = new File(packDir, packName + ".json");
 
             StringBuilder sb = new StringBuilder();
             sb.append("{\n");
@@ -498,6 +511,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             } else {
                 JOptionPane.showMessageDialog(this, "Pack exported successfully as:\n" + outFile.getName());
             }
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error exporting JSON: " + ex.getMessage());
             ex.printStackTrace();
