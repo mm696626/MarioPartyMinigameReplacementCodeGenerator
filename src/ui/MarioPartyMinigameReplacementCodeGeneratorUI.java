@@ -591,6 +591,15 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             ArrayList<String> codeBlocks = new ArrayList<>();
             ArrayList<String> replacements = new ArrayList<>();
 
+            String cheatName = JOptionPane.showInputDialog(this,
+                    "Enter a name for this code:",
+                    "Name Your Code",
+                    JOptionPane.PLAIN_MESSAGE);
+
+            if (cheatName == null || cheatName.trim().isEmpty()) {
+                cheatName = "Custom Minigame Pack";
+            }
+
             for (Map.Entry<Minigame, JComboBox<String>> entry : replacementSelectors.entrySet()) {
                 Minigame oldMinigame = entry.getKey();
                 String newMinigameName = (String) entry.getValue().getSelectedItem();
@@ -612,7 +621,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
             if (!codeBlocks.isEmpty()) {
                 try (PrintWriter writer = new PrintWriter(new FileOutputStream(CodeGenerator.getFileName(game), true))) {
-                    writer.println("$" + selectedGame + " Custom Minigame Pack");
+                    writer.println("$" + cheatName);
 
                     for (String code : codeBlocks) {
                         writer.print(code);
