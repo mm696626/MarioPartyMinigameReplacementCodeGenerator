@@ -29,24 +29,30 @@ public class CodeGenerator {
     public static String writeRawCode(String selectedGame, Minigame oldMinigame, Minigame newMinigame) {
         StringBuilder code = new StringBuilder();
 
-        if (selectedGame.equals("Mario Party 4")) {
+        if (selectedGame.equals("Mario Party")) {
+            code.append("D10ED5DE 00").append(String.format("%02X", oldMinigame.getId())).append("\n");
+            code.append("810ED5DE 00").append(String.format("%02X", newMinigame.getId())).append("\n");
+        } else if (selectedGame.equals("Mario Party 4")) {
             code.append("2818FD2C 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
             code.append("0218FD2C 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("E2000001 80008000\n");
         } else if (selectedGame.equals("Mario Party 5")) {
             code.append("2822A4C4 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
             code.append("0222A4C4 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("E2000001 80008000\n");
         } else if (selectedGame.equals("Mario Party 6")) {
             code.append("28265BA8 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
             code.append("02265BA8 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("E2000001 80008000\n");
         } else if (selectedGame.equals("Mario Party 7")) {
             code.append("28291558 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
             code.append("02291558 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("E2000001 80008000\n");
         } else {
             code.append("282287CC 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
             code.append("022287CC 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("E2000001 80008000\n");
         }
-
-        code.append("E2000001 80008000\n");
 
         return code.toString();
     }
@@ -59,6 +65,7 @@ public class CodeGenerator {
         }
 
         String fileName = switch (selectedGame) {
+            case "Mario Party" -> "CLBE01.txt";
             case "Mario Party 4" -> "GMPE01.txt";
             case "Mario Party 5" -> "GP5E01.txt";
             case "Mario Party 6" -> "GP6E01.txt";
