@@ -10,7 +10,9 @@ public class MinigameConstants {
             new Minigame(0x03, "Buried Treasure", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x04, "Treasure Divers", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x05, "Shell Game", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
+            new Minigame(0x06, "Slot Car Derby 1", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x07, "Hot Bob-omb", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
+            new Minigame(0x08, "Slot Car Derby 2", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x09, "Pipe Maze", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
             new Minigame(0x0A, "Ghost Guess", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
             new Minigame(0x0B, "Musical Mushroom", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
@@ -29,6 +31,7 @@ public class MinigameConstants {
             new Minigame(0x18, "Platform Peril", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x19, "Teetering Towers", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
             new Minigame(0x1A, "Mushroom Mix-Up", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
+            new Minigame(0x1B, "Bumper Ball Maze 1", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x1C, "Grab Bag", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x1D, "Bobsled Run", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(0x1E, "Bumper Balls", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
@@ -37,6 +40,7 @@ public class MinigameConstants {
             new Minigame(0x21, "Tipsy Tourney", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x22, "Bombs Away", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x23, "Crane Game", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
+            new Minigame(0x24, "Bumper Ball Maze 2", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x25, "Slot Car Derby", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x26, "Mario Bandstand", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x27, "Desert Dash", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
@@ -52,6 +56,7 @@ public class MinigameConstants {
             new Minigame(0x32, "Piranha's Pursuit", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
             new Minigame(0x33, "Tug o' War", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
             new Minigame(0x34, "Paddle Battle", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
+            new Minigame(0x35, "Bumper Ball Maze 3", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x36, "Coin Shower Flower", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
             new Minigame(0x37, "Hammer Drop", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME)
     };
@@ -107,6 +112,7 @@ public class MinigameConstants {
             new Minigame(0x35, "Slot Car Derby", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x36, "Shy Guy Says", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x37, "Sneak 'n' Snore", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
+            new Minigame(0x39, "Driver's Ed", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x3B, "Quick Draw Corks", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(0x3C, "Saber Slashes", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(0x3D, "Mushroom Brew", MinigameCategoryConstants.DUEL_MINIGAME),
@@ -188,10 +194,13 @@ public class MinigameConstants {
             new Minigame(0x3E, "Dorrie Dip", MinigameCategoryConstants.ITEM_MINIGAME),
             new Minigame(0x3F, "Swinging with Sharks", MinigameCategoryConstants.ITEM_MINIGAME),
             new Minigame(0x40, "Swing 'n' Swipe", MinigameCategoryConstants.ITEM_MINIGAME),
+            new Minigame(0x42, "Stardust Battle", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(0x43, "Game Guy's Roulette", MinigameCategoryConstants.GAME_GUY_MINIGAME),
             new Minigame(0x44, "Game Guy's Lucky 7", MinigameCategoryConstants.GAME_GUY_MINIGAME),
             new Minigame(0x45, "Game Guy's Magic Boxes", MinigameCategoryConstants.GAME_GUY_MINIGAME),
             new Minigame(0x46, "Game Guy's Sweet Surprise", MinigameCategoryConstants.GAME_GUY_MINIGAME),
+            new Minigame(0x47, "Dizzy Dinghies", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x48, "Mario's Puzzle Party Pro", MinigameCategoryConstants.EXTRA_MINIGAME),
     };
 
     public static final Minigame[] MARIO_PARTY_4_MINIGAMES = {
@@ -227,6 +236,7 @@ public class MinigameConstants {
             new Minigame(30, "Pair-a-Sailing", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(31, "Order Up", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(32, "Dungeon Duos", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
+            new Minigame(33, "Beach Volley Folly", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(34, "Cheep Cheep Sweep", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(35, "Darts of Doom", MinigameCategoryConstants.BOWSER_MINIGAME),
             new Minigame(36, "Fruits of Doom", MinigameCategoryConstants.BOWSER_MINIGAME),
@@ -235,9 +245,23 @@ public class MinigameConstants {
             new Minigame(39, "Paths of Peril", MinigameCategoryConstants.BATTLE_MINIGAME),
             new Minigame(40, "Bowser's Bigger Blast", MinigameCategoryConstants.BATTLE_MINIGAME),
             new Minigame(41, "Butterfly Blitz", MinigameCategoryConstants.BATTLE_MINIGAME),
+            new Minigame(42, "Barrel Baron", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(45, "Bowser Bop", MinigameCategoryConstants.STORY_MINIGAME),
+            new Minigame(46, "Mystic Match 'Em", MinigameCategoryConstants.STORY_MINIGAME),
+            new Minigame(47, "Archaeologuess", MinigameCategoryConstants.STORY_MINIGAME),
+            new Minigame(48, "Goomba's Chip Flip", MinigameCategoryConstants.STORY_MINIGAME),
+            new Minigame(49, "Kareening Koopas", MinigameCategoryConstants.STORY_MINIGAME),
+            new Minigame(50, "The Final Battle!", MinigameCategoryConstants.STORY_MINIGAME),
+            new Minigame(51, "Jigsaw Jitters", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(43, "Mario Speedwagons", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(55, "Rumble Fishing", MinigameCategoryConstants.BATTLE_MINIGAME),
-            new Minigame(56, "Take a Breather", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME)
+            new Minigame(56, "Take a Breather", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
+            new Minigame(57, "Bowser Wrestling", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(58, "Panels of Doom", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(59, "Mushroom Medic", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(60, "Doors of Doom", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(61, "Bob-Omb X-ing", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(62, "Goomba Stomp", MinigameCategoryConstants.EXTRA_MINIGAME)
     };
 
     public static final Minigame[] MARIO_PARTY_5_MINIGAMES = {
@@ -299,6 +323,7 @@ public class MinigameConstants {
             new Minigame(59, "Rain of Fire", MinigameCategoryConstants.BOWSER_MINIGAME),
             new Minigame(60, "Cage-in Cookin'", MinigameCategoryConstants.BOWSER_MINIGAME),
             new Minigame(61, "Scaldin' Cauldron", MinigameCategoryConstants.BOWSER_MINIGAME),
+            new Minigame(62, "Frightmare", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(63, "Flower Shower", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(64, "Dodge Bomb", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(65, "Fish Upon a Star", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
@@ -314,7 +339,9 @@ public class MinigameConstants {
             new Minigame(75, "Banking Coins", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(76, "Frozen Frenzy", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(77, "Curvy Curbs", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
-            new Minigame(79, "Fish Sticks", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME)
+            new Minigame(78, "Beach Volleyball", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(79, "Fish Sticks", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
+            new Minigame(80, "Ice Hockey", MinigameCategoryConstants.EXTRA_MINIGAME)
     };
 
     public static final Minigame[] MARIO_PARTY_6_MINIGAMES = {
@@ -394,8 +421,12 @@ public class MinigameConstants {
             new Minigame(74, "Tally Me Banana", MinigameCategoryConstants.DK_MINIGAME),
             new Minigame(75, "Banana Shake", MinigameCategoryConstants.DK_MINIGAME),
             new Minigame(76, "Pier Factor", MinigameCategoryConstants.DK_MINIGAME),
+            new Minigame(77, "Seer Terror", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(78, "Block Star", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(79, "Lab Brats", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(80, "Strawberry Shortfuse", MinigameCategoryConstants.BATTLE_MINIGAME),
-            new Minigame(81, "Control Schtick", MinigameCategoryConstants.BATTLE_MINIGAME)
+            new Minigame(81, "Control Schtick", MinigameCategoryConstants.BATTLE_MINIGAME),
+            new Minigame(82, "Dunk Bros.", MinigameCategoryConstants.EXTRA_MINIGAME),
     };
 
     public static final Minigame[] MARIO_PARTY_7_MINIGAMES = {
@@ -435,6 +466,7 @@ public class MinigameConstants {
             new Minigame(35, "Tile and Error", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(36, "Battery Ram", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(37, "Cardinal Rule", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
+            new Minigame(38, "Ice Moves", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(39, "Bumper Crop", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(40, "Hop-O-Matic 4000", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(41, "Wingin' It", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
@@ -472,6 +504,7 @@ public class MinigameConstants {
             new Minigame(73, "Vine Country", MinigameCategoryConstants.ONE_PLAYER_DK_MINIGAME),
             new Minigame(74, "A Bridge Too Short", MinigameCategoryConstants.ONE_PLAYER_DK_MINIGAME),
             new Minigame(75, "Spider Stomp", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
+            new Minigame(76, "Stick and Spin", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(77, "Synch-row-nicity", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
             new Minigame(78, "Grin and Bar It", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
             new Minigame(79, "Hammer Spammer", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
@@ -480,6 +513,7 @@ public class MinigameConstants {
             new Minigame(82, "Spin Off", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
             new Minigame(83, "Rope a Dope", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
             new Minigame(84, "Duct & Cover", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
+            new Minigame(86, "Bowser's Lovely Lift!", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(88, "Mathemortican", MinigameCategoryConstants.FOUR_PLAYER_MIC_MINIGAME),
             new Minigame(89, "Bob-ombic Plague", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
             new Minigame(90, "Unhappy Trails", MinigameCategoryConstants.EIGHT_PLAYER_MINIGAME),
@@ -544,11 +578,20 @@ public class MinigameConstants {
             new Minigame(58, "Cardiators", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(59, "Rotation Station", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(60, "Eyebrawl", MinigameCategoryConstants.DUEL_MINIGAME),
+            new Minigame(61, "Table Menace", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(62, "Flagging Rights", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(63, "Trial by Tile", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(64, "Star Carnival Bowling", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(65, "Puzzle Pillars", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(66, "Canyon Cruisers", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(67, "Chomping Frenzy", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(68, "Settle It in Court", MinigameCategoryConstants.DUEL_MINIGAME),
+            new Minigame(69, "Moped Mayhem", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(70, "Flip the Chimp", MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME),
             new Minigame(71, "Pour to Score", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
             new Minigame(72, "Fruit Picker", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
             new Minigame(73, "Stampede", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
+            new Minigame(74, "Superstar Showdown", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(75, "Alpine Assault", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(76, "Treacherous Tightrope", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME)
     };

@@ -23,6 +23,8 @@ public class MinigameCategoryConstants {
     public static final int ONE_PLAYER_MINIGAME = 15;
     public static final int EIGHT_PLAYER_MINIGAME = 16;
     public static final int GAME_GUY_MINIGAME = 17; //literally only for the Game Guy minigames in 3
+    public static final int STORY_MINIGAME = 18; //any minigames tied to Story mode
+    public static final int EXTRA_MINIGAME = 19; //any other minigame that doesn't fit
 
     public static final Map<Integer, String> MINIGAME_CATEGORY_MAP = new LinkedHashMap<>() {{
         put(-1, "All");
@@ -44,6 +46,8 @@ public class MinigameCategoryConstants {
         put(ONE_PLAYER_MINIGAME, "1 Player");
         put(EIGHT_PLAYER_MINIGAME, "8 Player");
         put(GAME_GUY_MINIGAME, "Game Guy");
+        put(STORY_MINIGAME, "Story");
+        put(EXTRA_MINIGAME, "Extra");
     }};
 
     public static final String[] MINIGAME_CATEGORY_NAMES = MINIGAME_CATEGORY_MAP.values().toArray(new String[0]);
