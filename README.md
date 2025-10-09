@@ -5,6 +5,19 @@ A tool to generate minigame replacement cheat codes for Mario Parties 1-8
 * A tool allows you to generate codes that will replace minigames for Mario Parties 1-8
 * This project wouldn't be possible without the Gecko codes bundled with Dolphin and Mario Party Netplay
 
+### Replacement Code Sources
+* N64 Games (Mario Parties 1-3)
+  * https://github.com/MarioPartyNetplay/Mupen-MPN/blob/master/Data/Cheats/Generated/MarioParty.cht
+  * https://github.com/MarioPartyNetplay/Mupen-MPN/blob/master/Data/Cheats/Generated/MarioParty2.cht
+  * https://github.com/MarioPartyNetplay/Mupen-MPN/blob/master/Data/Cheats/Generated/MarioParty3.cht
+* GameCube Games (Mario Parties 4-7)
+  * https://github.com/dolphin-emu/dolphin/blob/master/Data/Sys/GameSettings/GMPE01.ini
+  * https://github.com/dolphin-emu/dolphin/blob/master/Data/Sys/GameSettings/GP5E01.ini
+  * https://github.com/dolphin-emu/dolphin/blob/master/Data/Sys/GameSettings/GP6E01.ini
+  * https://github.com/dolphin-emu/dolphin/blob/master/Data/Sys/GameSettings/GP7E01.ini
+* Wii Games (just Mario Party 8)
+  * https://github.com/dolphin-emu/dolphin/blob/master/Data/Sys/GameSettings/RM8E01.ini
+
 ### Important Notes
 * If you replace minigames like the below example (Booksquirm and Manta Rings would be replaced by Domination, so be careful)
 * Manta Rings -> Booksquirm
