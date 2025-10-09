@@ -9,5 +9,8 @@ A tool to generate minigame replacement Gecko codes for Mario Parties 4-8
 * I don't play the N64 Mario Parties as much
 * Not sure if cheats will work on all N64 emulators/real hardware
 
-### Note
+### Important Notes
+* If you replace minigames like the below example (Booksquirm and Manta Rings would be replaced by Domination, so be careful)
+* Manta Rings -> Booksquirm
+* Booksquirm -> Domination
 **These codes are only for the US version**
