@@ -1,5 +1,6 @@
 package constants;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MinigameCategoryConstants {
@@ -21,25 +22,25 @@ public class MinigameCategoryConstants {
     public static final int ONE_PLAYER_MINIGAME = 14;
     public static final int EIGHT_PLAYER_MINIGAME = 15;
 
-    public static final Map<Integer, String> MINIGAME_CATEGORY_MAP = Map.ofEntries(
-            Map.entry(-1, "All"),
-            Map.entry(FOUR_PLAYER_MINIGAME, "4 Player"),
-            Map.entry(FOUR_PLAYER_MIC_MINIGAME, "4 Player Mic"),
-            Map.entry(FOUR_PLAYER_DUEL_MINIGAME, "4 Player/Duel"),
-            Map.entry(ONE_V_THREE_MINIGAME, "1v3"),
-            Map.entry(ONE_V_THREE_MIC_MINIGAME, "1v3 Mic"),
-            Map.entry(TWO_V_TWO_MINIGAME, "2v2"),
-            Map.entry(TWO_V_TWO_DUEL_MINIGAME, "2v2/Duel"),
-            Map.entry(BATTLE_MINIGAME, "Battle"),
-            Map.entry(BATTLE_DUEL_MINIGAME, "Battle/Duel"),
-            Map.entry(DUEL_MINIGAME, "Duel"),
-            Map.entry(BOWSER_MINIGAME, "Bowser"),
-            Map.entry(ONE_PLAYER_BOWSER_MINIGAME, "1 Player Bowser"),
-            Map.entry(DK_MINIGAME, "DK"),
-            Map.entry(ONE_PLAYER_DK_MINIGAME, "1 Player DK"),
-            Map.entry(ONE_PLAYER_MINIGAME, "1 Player"),
-            Map.entry(EIGHT_PLAYER_MINIGAME, "8 Player")
-    );
+    public static final Map<Integer, String> MINIGAME_CATEGORY_MAP = new LinkedHashMap<>() {{
+        put(-1, "All");
+        put(FOUR_PLAYER_MINIGAME, "4 Player");
+        put(FOUR_PLAYER_MIC_MINIGAME, "4 Player Mic");
+        put(FOUR_PLAYER_DUEL_MINIGAME, "4 Player/Duel");
+        put(ONE_V_THREE_MINIGAME, "1v3");
+        put(ONE_V_THREE_MIC_MINIGAME, "1v3 Mic");
+        put(TWO_V_TWO_MINIGAME, "2v2");
+        put(TWO_V_TWO_DUEL_MINIGAME, "2v2/Duel");
+        put(BATTLE_MINIGAME, "Battle");
+        put(BATTLE_DUEL_MINIGAME, "Battle/Duel");
+        put(DUEL_MINIGAME, "Duel");
+        put(BOWSER_MINIGAME, "Bowser");
+        put(ONE_PLAYER_BOWSER_MINIGAME, "1 Player Bowser");
+        put(DK_MINIGAME, "DK");
+        put(ONE_PLAYER_DK_MINIGAME, "1 Player DK");
+        put(ONE_PLAYER_MINIGAME, "1 Player");
+        put(EIGHT_PLAYER_MINIGAME, "8 Player");
+    }};
 
     public static final String[] MINIGAME_CATEGORY_NAMES = MINIGAME_CATEGORY_MAP.values().toArray(new String[0]);
 }
