@@ -1,5 +1,5 @@
 # MarioPartyMinigameReplacementCodeGenerator
-A tool to generate minigame replacement cheat codes for Mario Parties 4-8
+A tool to generate minigame replacement cheat codes for Mario Parties 1-8
 
 ### Mario Party Minigame Replacement Code Generator
 * A tool allows you to generate codes that will replace minigames for Mario Parties 1-8
@@ -9,4 +9,4 @@ A tool to generate minigame replacement cheat codes for Mario Parties 4-8
 * If you replace minigames like the below example (Booksquirm and Manta Rings would be replaced by Domination, so be careful)
 * Manta Rings -> Booksquirm
 * Booksquirm -> Domination
-**These codes are only for the US version**
+* **These codes are only for the US version**
