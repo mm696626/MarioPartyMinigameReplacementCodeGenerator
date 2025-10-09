@@ -39,6 +39,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         minigameMap = new HashMap<>();
         minigameMap.put("Mario Party", MinigameConstants.MARIO_PARTY_1_MINIGAMES);
         minigameMap.put("Mario Party 2", MinigameConstants.MARIO_PARTY_2_MINIGAMES);
+        minigameMap.put("Mario Party 3", MinigameConstants.MARIO_PARTY_3_MINIGAMES);
         minigameMap.put("Mario Party 4", MinigameConstants.MARIO_PARTY_4_MINIGAMES);
         minigameMap.put("Mario Party 5", MinigameConstants.MARIO_PARTY_5_MINIGAMES);
         minigameMap.put("Mario Party 6", MinigameConstants.MARIO_PARTY_6_MINIGAMES);
@@ -59,7 +60,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
         gbc.gridy = 1;
         marioPartyGameDropdown = new JComboBox<>(new String[]{
-                "Mario Party", "Mario Party 2", "Mario Party 4", "Mario Party 5", "Mario Party 6", "Mario Party 7", "Mario Party 8"
+                "Mario Party", "Mario Party 2", "Mario Party 3", "Mario Party 4", "Mario Party 5", "Mario Party 6", "Mario Party 7", "Mario Party 8"
         });
         panel.add(marioPartyGameDropdown, gbc);
 

@@ -35,6 +35,9 @@ public class CodeGenerator {
         } else if (selectedGame.equals("Mario Party 2")) {
             code.append("D00F93C9 00").append(String.format("%02X", oldMinigame.getId())).append("\n");
             code.append("800F93C9 00").append(String.format("%02X", newMinigame.getId())).append("\n");
+        } else if (selectedGame.equals("Mario Party 3")) {
+            code.append("D00CD068 00").append(String.format("%02X", oldMinigame.getId())).append("\n");
+            code.append("800CD068 00").append(String.format("%02X", newMinigame.getId())).append("\n");
         } else if (selectedGame.equals("Mario Party 4")) {
             code.append("2818FD2C 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
             code.append("0218FD2C 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
@@ -67,16 +70,6 @@ public class CodeGenerator {
             generatedCodesFolder.mkdirs();
         }
 
-        String fileName = switch (selectedGame) {
-            case "Mario Party" -> "CLBE01.txt";
-            case "Mario Party 2" -> "NMWE01.txt";
-            case "Mario Party 4" -> "GMPE01.txt";
-            case "Mario Party 5" -> "GP5E01.txt";
-            case "Mario Party 6" -> "GP6E01.txt";
-            case "Mario Party 7" -> "GP7E01.txt";
-            default -> "RM8E01.txt";
-        };
-
-        return "generated_codes/" + fileName;
+        return "generated_codes/" + selectedGame + ".txt";
     }
 }
