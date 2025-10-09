@@ -245,7 +245,6 @@ public class MinigameConstants {
             new Minigame(39, "Paths of Peril", MinigameCategoryConstants.BATTLE_MINIGAME),
             new Minigame(40, "Bowser's Bigger Blast", MinigameCategoryConstants.BATTLE_MINIGAME),
             new Minigame(41, "Butterfly Blitz", MinigameCategoryConstants.BATTLE_MINIGAME),
-            new Minigame(42, "Barrel Baron", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(43, "Mario Speedwagons", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(45, "Bowser Bop", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(46, "Mystic Match 'Em", MinigameCategoryConstants.STORY_MINIGAME),
@@ -253,15 +252,10 @@ public class MinigameConstants {
             new Minigame(48, "Goomba's Chip Flip", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(49, "Kareening Koopas", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(50, "The Final Battle!", MinigameCategoryConstants.STORY_MINIGAME),
-            new Minigame(51, "Jigsaw Jitters", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(55, "Rumble Fishing", MinigameCategoryConstants.BATTLE_MINIGAME),
             new Minigame(56, "Take a Breather", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(57, "Bowser Wrestling", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(58, "Panels of Doom", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(59, "Mushroom Medic", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(60, "Doors of Doom", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(61, "Bob-Omb X-ing", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(62, "Goomba Stomp", MinigameCategoryConstants.EXTRA_MINIGAME)
     };
 
     public static final Minigame[] MARIO_PARTY_5_MINIGAMES = {
