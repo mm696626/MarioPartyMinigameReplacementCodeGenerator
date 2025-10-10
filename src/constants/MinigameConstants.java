@@ -236,7 +236,6 @@ public class MinigameConstants {
             new Minigame(30, "Pair-a-Sailing", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(31, "Order Up", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(32, "Dungeon Duos", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
-            new Minigame(33, "Beach Volley Folly", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(34, "Cheep Cheep Sweep", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(35, "Darts of Doom", MinigameCategoryConstants.BOWSER_MINIGAME),
             new Minigame(36, "Fruits of Doom", MinigameCategoryConstants.BOWSER_MINIGAME),
@@ -333,9 +332,7 @@ public class MinigameConstants {
             new Minigame(75, "Banking Coins", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(76, "Frozen Frenzy", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(77, "Curvy Curbs", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
-            new Minigame(78, "Beach Volleyball", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(79, "Fish Sticks", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
-            new Minigame(80, "Ice Hockey", MinigameCategoryConstants.EXTRA_MINIGAME)
     };
 
     public static final Minigame[] MARIO_PARTY_6_MINIGAMES = {
@@ -573,15 +570,7 @@ public class MinigameConstants {
             new Minigame(58, "Cardiators", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(59, "Rotation Station", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(60, "Eyebrawl", MinigameCategoryConstants.DUEL_MINIGAME),
-            new Minigame(61, "Table Menace", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(62, "Flagging Rights", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(63, "Trial by Tile", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(64, "Star Carnival Bowling", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(65, "Puzzle Pillars", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(66, "Canyon Cruisers", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(67, "Chomping Frenzy", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(68, "Settle It in Court", MinigameCategoryConstants.DUEL_MINIGAME),
-            new Minigame(69, "Moped Mayhem", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(70, "Flip the Chimp", MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME),
             new Minigame(71, "Pour to Score", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
             new Minigame(72, "Fruit Picker", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
