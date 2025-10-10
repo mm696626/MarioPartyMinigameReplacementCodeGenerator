@@ -231,101 +231,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        JPanel loadPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        loadPanel.add(new JLabel("Load Saved Pack:"));
-        JComboBox<String> savedPacksDropdown = new JComboBox<>();
-        loadPanel.add(savedPacksDropdown);
-        JButton loadSelectedButton = new JButton("Load Selected Pack");
-        loadPanel.add(loadSelectedButton);
-
-        mainPanel.add(loadPanel);
-
-        File packDir = new File("saved_packs" + File.separator + selectedGame);
-        if (packDir.exists() && packDir.isDirectory()) {
-            String[] packFiles = packDir.list((dir, name) -> name.toLowerCase().endsWith(".json"));
-            if (packFiles != null) {
-                Arrays.sort(packFiles);
-                for (String f : packFiles) {
-                    savedPacksDropdown.addItem(f);
-                }
-            }
-        }
-
         Map<Minigame, JComboBox<String>> replacementSelectors = new LinkedHashMap<>();
-
-        JPanel bulkReplacePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        bulkReplacePanel.setBorder(BorderFactory.createTitledBorder("Bulk Replace Category Minigames"));
-
-        bulkReplacePanel.add(new JLabel("Select Category:"));
-        JComboBox<String> bulkCategoryDropdown = new JComboBox<>();
-
-        List<Integer> categoryKeys = new ArrayList<>(categoryMap.keySet());
-        categoryKeys.sort(Integer::compareTo);
-        for (Integer cat : categoryKeys) {
-            String catName = MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(cat);
-            bulkCategoryDropdown.addItem(catName);
-        }
-
-        bulkReplacePanel.add(bulkCategoryDropdown);
-
-        bulkReplacePanel.add(new JLabel("Replacement Minigame:"));
-        JComboBox<String> bulkReplacementDropdown = new JComboBox<>();
-        bulkReplacePanel.add(bulkReplacementDropdown);
-
-        bulkCategoryDropdown.addActionListener(ev -> {
-            int selectedIndex = bulkCategoryDropdown.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int catId = categoryKeys.get(selectedIndex);
-                List<Minigame> replacements = new ArrayList<>(categoryMap.get(catId));
-
-                for (Minigame m : minigames) {
-                    int otherCat = m.getCategory();
-                    if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
-                            otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
-                        replacements.add(m);
-                    }
-                    if (catId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
-                            otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
-                        replacements.add(m);
-                    }
-                    if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
-                            otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-                        replacements.add(m);
-                    }
-                }
-
-                replacements.sort(Comparator.comparing(Minigame::getName));
-                String[] names = MinigameConstants.getNames(replacements.toArray(new Minigame[0]));
-                bulkReplacementDropdown.setModel(new DefaultComboBoxModel<>(names));
-                if (names.length > 0) {
-                    bulkReplacementDropdown.setSelectedIndex(0);
-                }
-            }
-        });
-        bulkCategoryDropdown.setSelectedIndex(0);
-
-        JButton setAllButton = new JButton("Set All In Category");
-        bulkReplacePanel.add(setAllButton);
-
-        setAllButton.addActionListener(ev -> {
-            int catIndex = bulkCategoryDropdown.getSelectedIndex();
-            if (catIndex < 0) {
-                JOptionPane.showMessageDialog(packEditorFrame, "Please select a category.");
-                return;
-            }
-            int catId = categoryKeys.get(catIndex);
-            String replacementName = (String) bulkReplacementDropdown.getSelectedItem();
-            if (replacementName == null) return;
-
-            List<Minigame> minigamesInCat = categoryMap.get(catId);
-            for (Minigame mg : minigamesInCat) {
-                JComboBox<String> combo = replacementSelectors.get(mg);
-                if (combo != null) {
-                    combo.setSelectedItem(replacementName);
-                }
-            }
-        });
-        mainPanel.add(bulkReplacePanel, 0);
 
         for (Map.Entry<Integer, List<Minigame>> entry : categoryMap.entrySet()) {
             int category = entry.getKey();
@@ -367,7 +273,24 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             mainPanel.add(categoryPanel);
         }
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel loadSavePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        loadSavePanel.add(new JLabel("Load Saved Pack:"));
+        JComboBox<String> savedPacksDropdown = new JComboBox<>();
+        loadSavePanel.add(savedPacksDropdown);
+        JButton loadSelectedButton = new JButton("Load Selected Pack");
+        loadSavePanel.add(loadSelectedButton);
+
+        File packDir = new File("saved_packs" + File.separator + selectedGame);
+        if (packDir.exists() && packDir.isDirectory()) {
+            String[] packFiles = packDir.list((dir, name) -> name.toLowerCase().endsWith(".json"));
+            if (packFiles != null) {
+                Arrays.sort(packFiles);
+                for (String f : packFiles) {
+                    savedPacksDropdown.addItem(f);
+                }
+            }
+        }
 
         JButton generatePackButton = new JButton("Generate Pack Code");
         generatePackButton.addActionListener(e -> {
@@ -377,10 +300,10 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         JButton exportButton = new JButton("Export Pack to JSON");
         exportButton.addActionListener(e -> exportPackToJson(replacementSelectors, selectedGame));
 
-        buttonPanel.add(generatePackButton);
-        buttonPanel.add(exportButton);
+        loadSavePanel.add(generatePackButton);
+        loadSavePanel.add(exportButton);
 
-        mainPanel.add(buttonPanel);
+        mainPanel.add(loadSavePanel);
 
         loadSelectedButton.addActionListener(e -> {
             String selectedPack = (String) savedPacksDropdown.getSelectedItem();
