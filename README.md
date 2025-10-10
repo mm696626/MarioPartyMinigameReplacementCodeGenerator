@@ -18,12 +18,6 @@ A tool to generate minigame replacement cheat codes for Mario Parties 1-8
 * Wii Games (just Mario Party 8)
   * https://github.com/dolphin-emu/dolphin/blob/master/Data/Sys/GameSettings/RM8E01.ini
 
-### Why not Mario Party Advance, Mario Party DS, or any games after Mario Party 8?
-* Mario Party Advance is too niche of a game to really fit here, and I'm not even sure if cheats to replace minigames even exist for this game
-* Mario Party DS would only work for singleplayer due to the multiplayer being Download Play only and thus cheats not working
-* I wanted to limit this to the classic Mario Party games (all the ones that Hudson Soft worked on)
-* I simply don't have any interest in any of the games after 8, and there's also the fact that cheat codes like this don't even exist for the Mario Party games made after the Wii anyway
-
 ### Important Notes
 * Any minigame that is selectable in the game's Free Play Mode or is in the standard Party mode is replaceable
 * If you replace minigames like the below example (Booksquirm and Manta Rings would be replaced by Domination, so be careful)
