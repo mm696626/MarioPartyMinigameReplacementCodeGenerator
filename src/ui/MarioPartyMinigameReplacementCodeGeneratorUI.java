@@ -216,7 +216,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             return;
         }
         Minigame[] minigames = minigameMap.get(selectedGame);
-        Map<Integer, List<Minigame>> categoryMap = new HashMap<>();
+        Map<Integer, List<Minigame>> categoryMap = new TreeMap<>();
         for (Minigame m : minigames) {
             categoryMap.computeIfAbsent(m.getCategory(), k -> new ArrayList<>()).add(m);
         }
