@@ -300,8 +300,8 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         JButton savePackButton = new JButton("Save Pack");
         savePackButton.addActionListener(e -> savePackToJson(replacementSelectors, selectedGame));
 
-        loadSavePanel.add(generatePackButton);
         loadSavePanel.add(savePackButton);
+        loadSavePanel.add(generatePackButton);
 
         mainPanel.add(loadSavePanel);
 
