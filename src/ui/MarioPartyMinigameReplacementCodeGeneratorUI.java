@@ -29,6 +29,8 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
     private Minigame[] currentOldMinigames;
     private Minigame[] currentNewMinigames;
 
+    private JCheckBox allowAllMinigamesCheckbox;
+
     public MarioPartyMinigameReplacementCodeGeneratorUI() {
         setTitle("Mario Party Minigame Replacement Code Generator");
         initializeMinigameMap();
@@ -94,11 +96,15 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         categoryFilterDropdown.addActionListener(e -> updateMinigames());
 
         gbc.gridy = 8;
+        allowAllMinigamesCheckbox = new JCheckBox("All minigames selectable for replacement in packs");
+        panel.add(allowAllMinigamesCheckbox, gbc);
+
+        gbc.gridy = 9;
         generateCode = new JButton("Generate");
         generateCode.addActionListener(this);
         panel.add(generateCode, gbc);
 
-        gbc.gridy = 9;
+        gbc.gridy = 10;
         JButton generatePackButton = new JButton("Open Minigame Pack Editor");
         generatePackButton.addActionListener(e -> openMinigamePackEditor());
         panel.add(generatePackButton, gbc);
@@ -220,6 +226,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             return;
         }
         Minigame[] minigames = minigameMap.get(selectedGame);
+        boolean allowAll = allowAllMinigamesCheckbox.isSelected();
         Map<Integer, List<Minigame>> categoryMap = new TreeMap<>();
         for (Minigame m : minigames) {
             categoryMap.computeIfAbsent(m.getCategory(), k -> new ArrayList<>()).add(m);
@@ -258,19 +265,24 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 int catId = categoryKeys.get(selectedIndex);
                 List<Minigame> replacements = new ArrayList<>(categoryMap.get(catId));
 
-                for (Minigame m : minigames) {
-                    int otherCat = m.getCategory();
-                    if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
-                            otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
-                        replacements.add(m);
-                    }
-                    if (catId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
-                            otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
-                        replacements.add(m);
-                    }
-                    if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
-                            otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-                        replacements.add(m);
+                if (allowAll) {
+                    replacements = new ArrayList<>(Arrays.asList(minigames));
+                }
+                else {
+                    for (Minigame m : minigames) {
+                        int otherCat = m.getCategory();
+                        if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
+                                otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
+                        if (catId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
+                                otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
+                        if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
+                                otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
                     }
                 }
 
@@ -318,18 +330,26 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             for (Minigame originalMinigame : categoryMinigames) {
                 JLabel originalLabel = new JLabel(originalMinigame.getName());
                 Minigame[] replacementPool;
-                List<Minigame> replacements = new ArrayList<>(categoryMinigames);
-                int categoryId = originalMinigame.getCategory();
-                for (Minigame m : minigames) {
-                    int otherCat = m.getCategory();
-                    if (categoryId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME && otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
-                        replacements.add(m);
-                    }
-                    if (categoryId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME && otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
-                        replacements.add(m);
-                    }
-                    if (categoryId == MinigameCategoryConstants.BATTLE_MINIGAME && otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-                        replacements.add(m);
+
+                List<Minigame> replacements;
+
+                if (allowAll) {
+                    replacements = new ArrayList<>(Arrays.asList(minigames));
+                }
+                else {
+                    replacements = new ArrayList<>(categoryMinigames);
+                    int categoryId = originalMinigame.getCategory();
+                    for (Minigame m : minigames) {
+                        int otherCat = m.getCategory();
+                        if (categoryId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME && otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
+                        if (categoryId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME && otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
+                        if (categoryId == MinigameCategoryConstants.BATTLE_MINIGAME && otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                            replacements.add(m);
+                        }
                     }
                 }
 
