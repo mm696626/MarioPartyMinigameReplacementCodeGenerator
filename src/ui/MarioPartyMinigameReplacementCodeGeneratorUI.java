@@ -297,11 +297,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             generatePackCodesFromSelections(selectedGame, replacementSelectors);
         });
 
-        JButton exportButton = new JButton("Export Pack to JSON");
-        exportButton.addActionListener(e -> exportPackToJson(replacementSelectors, selectedGame));
+        JButton savePackButton = new JButton("Save Pack");
+        savePackButton.addActionListener(e -> savePackToJson(replacementSelectors, selectedGame));
 
         loadSavePanel.add(generatePackButton);
-        loadSavePanel.add(exportButton);
+        loadSavePanel.add(savePackButton);
 
         mainPanel.add(loadSavePanel);
 
@@ -323,7 +323,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         packEditorFrame.setVisible(true);
     }
 
-    private void exportPackToJson(Map<Minigame, JComboBox<String>> selectors, String game) {
+    private void savePackToJson(Map<Minigame, JComboBox<String>> selectors, String game) {
         try {
             File packDir = new File("saved_packs" + File.separator + game);
             if (!packDir.exists()) {
