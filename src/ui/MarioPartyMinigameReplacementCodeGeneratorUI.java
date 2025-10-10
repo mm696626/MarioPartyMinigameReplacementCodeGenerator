@@ -122,6 +122,10 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             if ("All".equals(selectedCategory)) {
                 currentOldMinigames = minigameMap.get(selectedGame);
                 currentNewMinigames = minigameMap.get(selectedGame);
+
+                Arrays.sort(currentOldMinigames, Comparator.comparing(Minigame::getName));
+                Arrays.sort(currentNewMinigames, Comparator.comparing(Minigame::getName));
+
                 oldMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(currentOldMinigames)));
                 newMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(currentNewMinigames)));
                 return;
@@ -136,32 +140,32 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 }
             }
 
+            filteredList.sort(Comparator.comparing(Minigame::getName));
             currentOldMinigames = filteredList.toArray(new Minigame[0]);
 
-            if (selectedGame.equals("Mario Party 8")) {
-                if ("4 Player".equals(selectedCategory)) {
-                    for (Minigame m : minigameMap.get(selectedGame)) {
-                        if (m.getCategory() == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
-                            filteredList.add(m);
-                        }
+            if ("4 Player".equals(selectedCategory)) {
+                for (Minigame m : minigameMap.get(selectedGame)) {
+                    if (m.getCategory() == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                        filteredList.add(m);
                     }
                 }
-                if ("2v2".equals(selectedCategory)) {
-                    for (Minigame m : minigameMap.get(selectedGame)) {
-                        if (m.getCategory() == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
-                            filteredList.add(m);
-                        }
+            }
+            if ("2v2".equals(selectedCategory)) {
+                for (Minigame m : minigameMap.get(selectedGame)) {
+                    if (m.getCategory() == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                        filteredList.add(m);
                     }
                 }
-                if ("Battle".equals(selectedCategory)) {
-                    for (Minigame m : minigameMap.get(selectedGame)) {
-                        if (m.getCategory() == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-                            filteredList.add(m);
-                        }
+            }
+            if ("Battle".equals(selectedCategory)) {
+                for (Minigame m : minigameMap.get(selectedGame)) {
+                    if (m.getCategory() == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                        filteredList.add(m);
                     }
                 }
             }
 
+            filteredList.sort(Comparator.comparing(Minigame::getName));
             currentNewMinigames = filteredList.toArray(new Minigame[0]);
 
             oldMinigameDropdown.setModel(new DefaultComboBoxModel<>(MinigameConstants.getNames(currentOldMinigames)));
@@ -247,7 +251,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             }
         }
 
-        Map<Minigame, JComboBox<String>> replacementSelectors = new HashMap<>();
+        Map<Minigame, JComboBox<String>> replacementSelectors = new LinkedHashMap<>();
 
         JPanel bulkReplacePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         bulkReplacePanel.setBorder(BorderFactory.createTitledBorder("Bulk Replace Category Minigames"));
@@ -274,24 +278,23 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 int catId = categoryKeys.get(selectedIndex);
                 List<Minigame> replacements = new ArrayList<>(categoryMap.get(catId));
 
-                if ("Mario Party 8".equals(selectedGame)) {
-                    for (Minigame m : minigames) {
-                        int duelCat = m.getCategory();
-                        if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
-                                duelCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
-                            replacements.add(m);
-                        }
-                        if (catId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
-                                duelCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
-                            replacements.add(m);
-                        }
-                        if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
-                                duelCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-                            replacements.add(m);
-                        }
+                for (Minigame m : minigames) {
+                    int otherCat = m.getCategory();
+                    if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
+                            otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                        replacements.add(m);
+                    }
+                    if (catId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
+                            otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                        replacements.add(m);
+                    }
+                    if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
+                            otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                        replacements.add(m);
                     }
                 }
 
+                replacements.sort(Comparator.comparing(Minigame::getName));
                 String[] names = MinigameConstants.getNames(replacements.toArray(new Minigame[0]));
                 bulkReplacementDropdown.setModel(new DefaultComboBoxModel<>(names));
                 if (names.length > 0) {
@@ -327,6 +330,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         for (Map.Entry<Integer, List<Minigame>> entry : categoryMap.entrySet()) {
             int category = entry.getKey();
             List<Minigame> categoryMinigames = entry.getValue();
+            categoryMinigames.sort(Comparator.comparing(Minigame::getName));
             JPanel categoryPanel = new JPanel(new BorderLayout());
             categoryPanel.setBorder(BorderFactory.createTitledBorder(MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(category)));
             JPanel grid = new JPanel(new GridLayout(categoryMinigames.size(), 2, 10, 5));
@@ -335,21 +339,21 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 JLabel originalLabel = new JLabel(originalMinigame.getName());
                 Minigame[] replacementPool;
                 List<Minigame> replacements = new ArrayList<>(categoryMinigames);
-                if ("Mario Party 8".equals(selectedGame)) {
-                    int categoryId = originalMinigame.getCategory();
-                    for (Minigame m : minigames) {
-                        int duelCat = m.getCategory();
-                        if (categoryId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME && duelCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
-                            replacements.add(m);
-                        }
-                        if (categoryId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME && duelCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
-                            replacements.add(m);
-                        }
-                        if (categoryId == MinigameCategoryConstants.BATTLE_MINIGAME && duelCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-                            replacements.add(m);
-                        }
+                int categoryId = originalMinigame.getCategory();
+                for (Minigame m : minigames) {
+                    int otherCat = m.getCategory();
+                    if (categoryId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME && otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                        replacements.add(m);
+                    }
+                    if (categoryId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME && otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                        replacements.add(m);
+                    }
+                    if (categoryId == MinigameCategoryConstants.BATTLE_MINIGAME && otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                        replacements.add(m);
                     }
                 }
+
+                replacements.sort(Comparator.comparing(Minigame::getName));
                 replacementPool = replacements.toArray(new Minigame[0]);
                 String[] replacementOptions = MinigameConstants.getNames(replacementPool);
                 JComboBox<String> replacementDropdown = new JComboBox<>(replacementOptions);
@@ -520,7 +524,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
     private void generatePackCodesFromSelections(String game, Map<Minigame, JComboBox<String>> replacementSelectors) {
         try {
             ArrayList<String> codeBlocks = new ArrayList<>();
-            ArrayList<String> replacements = new ArrayList<>();
+            Map<String, List<String>> categorizedReplacements = new LinkedHashMap<>();
 
             String cheatName = JOptionPane.showInputDialog(this,
                     "Enter a name for this code:",
@@ -546,7 +550,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                 if (newMinigame != null && isDifferentMinigame(oldMinigame, newMinigame)) {
                     String code = CodeGenerator.writeRawCode(game, oldMinigame, newMinigame);
                     codeBlocks.add(code);
-                    replacements.add("* " + oldMinigame.getName() + " ➜ " + newMinigame.getName());
+
+                    String categoryName = MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(oldMinigame.getCategory());
+                    categorizedReplacements
+                            .computeIfAbsent(categoryName, k -> new ArrayList<>())
+                            .add("* " + oldMinigame.getName() + " ➜ " + newMinigame.getName());
                 }
             }
 
@@ -558,9 +566,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                         writer.print(code);
                     }
 
-                    writer.println();
-                    for (String replacement : replacements) {
-                        writer.println(replacement);
+                    for (Map.Entry<String, List<String>> entry : categorizedReplacements.entrySet()) {
+                        writer.println("*[" + entry.getKey() + "]");
+                        for (String replacement : entry.getValue()) {
+                            writer.print(replacement + "\n");
+                        }
                     }
                 }
             }
