@@ -233,6 +233,80 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
 
         Map<Minigame, JComboBox<String>> replacementSelectors = new LinkedHashMap<>();
 
+        JPanel bulkReplacePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        bulkReplacePanel.setBorder(BorderFactory.createTitledBorder("Bulk Replace Category Minigames"));
+
+        bulkReplacePanel.add(new JLabel("Select Category:"));
+        JComboBox<String> bulkCategoryDropdown = new JComboBox<>();
+
+        List<Integer> categoryKeys = new ArrayList<>(categoryMap.keySet());
+        categoryKeys.sort(Integer::compareTo);
+        for (Integer cat : categoryKeys) {
+            String catName = MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(cat);
+            bulkCategoryDropdown.addItem(catName);
+        }
+
+        bulkReplacePanel.add(bulkCategoryDropdown);
+
+        bulkReplacePanel.add(new JLabel("Replacement Minigame:"));
+        JComboBox<String> bulkReplacementDropdown = new JComboBox<>();
+        bulkReplacePanel.add(bulkReplacementDropdown);
+
+        bulkCategoryDropdown.addActionListener(ev -> {
+            int selectedIndex = bulkCategoryDropdown.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                int catId = categoryKeys.get(selectedIndex);
+                List<Minigame> replacements = new ArrayList<>(categoryMap.get(catId));
+
+                for (Minigame m : minigames) {
+                    int otherCat = m.getCategory();
+                    if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
+                            otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
+                        replacements.add(m);
+                    }
+                    if (catId == MinigameCategoryConstants.TWO_V_TWO_MINIGAME &&
+                            otherCat == MinigameCategoryConstants.TWO_V_TWO_DUEL_MINIGAME) {
+                        replacements.add(m);
+                    }
+                    if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
+                            otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
+                        replacements.add(m);
+                    }
+                }
+
+                replacements.sort(Comparator.comparing(Minigame::getName));
+                String[] names = MinigameConstants.getNames(replacements.toArray(new Minigame[0]));
+                bulkReplacementDropdown.setModel(new DefaultComboBoxModel<>(names));
+                if (names.length > 0) {
+                    bulkReplacementDropdown.setSelectedIndex(0);
+                }
+            }
+        });
+        bulkCategoryDropdown.setSelectedIndex(0);
+
+        JButton setAllButton = new JButton("Set All In Category");
+        bulkReplacePanel.add(setAllButton);
+
+        setAllButton.addActionListener(ev -> {
+            int catIndex = bulkCategoryDropdown.getSelectedIndex();
+            if (catIndex < 0) {
+                JOptionPane.showMessageDialog(packEditorFrame, "Please select a category.");
+                return;
+            }
+            int catId = categoryKeys.get(catIndex);
+            String replacementName = (String) bulkReplacementDropdown.getSelectedItem();
+            if (replacementName == null) return;
+
+            List<Minigame> minigamesInCat = categoryMap.get(catId);
+            for (Minigame mg : minigamesInCat) {
+                JComboBox<String> combo = replacementSelectors.get(mg);
+                if (combo != null) {
+                    combo.setSelectedItem(replacementName);
+                }
+            }
+        });
+        mainPanel.add(bulkReplacePanel, 0);
+
         for (Map.Entry<Integer, List<Minigame>> entry : categoryMap.entrySet()) {
             int category = entry.getKey();
             List<Minigame> categoryMinigames = entry.getValue();
