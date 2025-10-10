@@ -39,24 +39,24 @@ public class CodeGenerator {
             code.append("D00CD068 00").append(String.format("%02X", oldMinigame.getId())).append("\n");
             code.append("800CD068 00").append(String.format("%02X", newMinigame.getId())).append("\n");
         } else if (selectedGame.equals("Mario Party 4")) {
-            code.append("2818FD2C 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
-            code.append("0218FD2C 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("2818FD2C 000000").append(String.format("%02X", oldMinigame.getId())).append("\n");
+            code.append("0218FD2C 000000").append(String.format("%02X", newMinigame.getId())).append("\n");
             code.append("E2000001 80008000\n");
         } else if (selectedGame.equals("Mario Party 5")) {
-            code.append("2822A4C4 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
-            code.append("0222A4C4 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("2822A4C4 000000").append(String.format("%02X", oldMinigame.getId())).append("\n");
+            code.append("0222A4C4 000000").append(String.format("%02X", newMinigame.getId())).append("\n");
             code.append("E2000001 80008000\n");
         } else if (selectedGame.equals("Mario Party 6")) {
-            code.append("28265BA8 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
-            code.append("02265BA8 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("28265BA8 000000").append(String.format("%02X", oldMinigame.getId())).append("\n");
+            code.append("02265BA8 000000").append(String.format("%02X", newMinigame.getId())).append("\n");
             code.append("E2000001 80008000\n");
         } else if (selectedGame.equals("Mario Party 7")) {
-            code.append("28291558 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
-            code.append("02291558 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("28291558 000000").append(String.format("%02X", oldMinigame.getId())).append("\n");
+            code.append("02291558 000000").append(String.format("%02X", newMinigame.getId())).append("\n");
             code.append("E2000001 80008000\n");
         } else {
-            code.append("282287CC 000000").append(String.format("%02X", oldMinigame.getId() - 1)).append("\n");
-            code.append("022287CC 000000").append(String.format("%02X", newMinigame.getId() - 1)).append("\n");
+            code.append("282287CC 000000").append(String.format("%02X", oldMinigame.getId())).append("\n");
+            code.append("022287CC 000000").append(String.format("%02X", newMinigame.getId())).append("\n");
             code.append("E2000001 80008000\n");
         }
 
