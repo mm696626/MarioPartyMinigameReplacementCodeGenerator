@@ -236,6 +236,7 @@ public class MinigameConstants {
             new Minigame(0x1D, "Pair-a-Sailing", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(0x1E, "Order Up", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(0x1F, "Dungeon Duos", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
+            new Minigame(0x20, "Beach Volley Folly", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x21, "Cheep Cheep Sweep", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(0x22, "Darts of Doom", MinigameCategoryConstants.BOWSER_MINIGAME),
             new Minigame(0x23, "Fruits of Doom", MinigameCategoryConstants.BOWSER_MINIGAME),
@@ -251,10 +252,15 @@ public class MinigameConstants {
             new Minigame(0x2F, "Goomba's Chip Flip", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(0x30, "Kareening Koopas", MinigameCategoryConstants.STORY_MINIGAME),
             new Minigame(0x31, "The Final Battle!", MinigameCategoryConstants.STORY_MINIGAME),
+            new Minigame(0x32, "Jigsaw Jitters", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x36, "Rumble Fishing", MinigameCategoryConstants.BATTLE_MINIGAME),
             new Minigame(0x37, "Take a Breather", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x38, "Bowser Wrestling", MinigameCategoryConstants.EXTRA_MINIGAME),
-            new Minigame(0x39, "Panels of Doom", MinigameCategoryConstants.EXTRA_MINIGAME)
+            new Minigame(0x39, "Panels of Doom", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x3A, "Mushroom Medic", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x3B, "Doors of Doom", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x3C, "Bob-Omb X-ing", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x3D, "Goomba Stomp", MinigameCategoryConstants.EXTRA_MINIGAME)
     };
 
     public static final Minigame[] MARIO_PARTY_5_MINIGAMES = {
@@ -332,7 +338,9 @@ public class MinigameConstants {
             new Minigame(0x4A, "Banking Coins", MinigameCategoryConstants.TWO_V_TWO_MINIGAME),
             new Minigame(0x4B, "Frozen Frenzy", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
             new Minigame(0x4C, "Curvy Curbs", MinigameCategoryConstants.ONE_V_THREE_MINIGAME),
-            new Minigame(0x4E, "Fish Sticks", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME)
+            new Minigame(0x4D, "Beach Volleyball", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x4E, "Fish Sticks", MinigameCategoryConstants.FOUR_PLAYER_MINIGAME),
+            new Minigame(0x4F, "Ice Hockey", MinigameCategoryConstants.EXTRA_MINIGAME)
     };
 
     public static final Minigame[] MARIO_PARTY_6_MINIGAMES = {
@@ -570,7 +578,15 @@ public class MinigameConstants {
             new Minigame(0x39, "Cardiators", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(0x3A, "Rotation Station", MinigameCategoryConstants.DUEL_MINIGAME),
             new Minigame(0x3B, "Eyebrawl", MinigameCategoryConstants.DUEL_MINIGAME),
+            new Minigame(0x3C, "Table Menace", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x3D, "Flagging Rights", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x3E, "Trial by Tile", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x3F, "Star Carnival Bowling", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x40, "Puzzle Pillars", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x41, "Canyon Cruisers", MinigameCategoryConstants.EXTRA_MINIGAME),
+            new Minigame(0x42, "Chomping Frenzy", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x43, "Settle It in Court", MinigameCategoryConstants.DUEL_MINIGAME),
+            new Minigame(0x44, "Moped Mayhem", MinigameCategoryConstants.EXTRA_MINIGAME),
             new Minigame(0x45, "Flip the Chimp", MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME),
             new Minigame(0x46, "Pour to Score", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),
             new Minigame(0x47, "Fruit Picker", MinigameCategoryConstants.ONE_PLAYER_MINIGAME),

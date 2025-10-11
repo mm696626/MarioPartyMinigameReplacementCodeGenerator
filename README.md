@@ -19,7 +19,6 @@ A tool to generate minigame replacement cheat codes for Mario Parties 1-8
   * https://github.com/dolphin-emu/dolphin/blob/master/Data/Sys/GameSettings/RM8E01.ini
 
 ### Important Notes
-* Any minigame that is selectable in the game's Free Play Mode or is in the standard Party mode is replaceable
 * If you replace minigames like the below example (Booksquirm and Manta Rings would be replaced by Domination, so be careful)
 * Manta Rings -> Booksquirm
 * Booksquirm -> Domination
