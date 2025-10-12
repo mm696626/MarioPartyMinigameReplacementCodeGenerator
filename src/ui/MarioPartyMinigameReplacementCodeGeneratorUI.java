@@ -30,7 +30,6 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
     private Minigame[] currentNewMinigames;
 
     private JCheckBox allowAllMinigamesCheckbox;
-    private JCheckBox allowBattleAndFourPlayerCheckbox;
 
     public MarioPartyMinigameReplacementCodeGeneratorUI() {
         setTitle("Mario Party Minigame Replacement Code Generator");
@@ -101,15 +100,11 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         panel.add(allowAllMinigamesCheckbox, gbc);
 
         gbc.gridy = 9;
-        allowBattleAndFourPlayerCheckbox = new JCheckBox("Battle minigames selectable for 4 Player and vice versa in packs");
-        panel.add(allowBattleAndFourPlayerCheckbox, gbc);
-
-        gbc.gridy = 10;
         generateCode = new JButton("Generate");
         generateCode.addActionListener(this);
         panel.add(generateCode, gbc);
 
-        gbc.gridy = 11;
+        gbc.gridy = 10;
         JButton generatePackButton = new JButton("Open Minigame Pack Editor");
         generatePackButton.addActionListener(e -> openMinigamePackEditor());
         panel.add(generatePackButton, gbc);
@@ -232,7 +227,6 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         }
         Minigame[] minigames = minigameMap.get(selectedGame);
         boolean allowAll = allowAllMinigamesCheckbox.isSelected();
-        boolean allowBattleFourPlayer = allowBattleAndFourPlayerCheckbox.isSelected();
         Map<Integer, List<Minigame>> categoryMap = new TreeMap<>();
         for (Minigame m : minigames) {
             categoryMap.computeIfAbsent(m.getCategory(), k -> new ArrayList<>()).add(m);
@@ -278,10 +272,6 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                     for (Minigame m : minigames) {
                         int otherCat = m.getCategory();
                         addDuelVariantReplacements(m, catId, otherCat, replacements);
-
-                        if (allowBattleFourPlayer) {
-                            addBattleFourPlayerReplacements(m, catId, otherCat, replacements);
-                        }
                     }
                 }
 
@@ -341,10 +331,6 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                     for (Minigame m : minigames) {
                         int otherCat = m.getCategory();
                         addDuelVariantReplacements(m, catId, otherCat, replacements);
-
-                        if (allowBattleFourPlayer) {
-                            addBattleFourPlayerReplacements(m, catId, otherCat, replacements);
-                        }
                     }
                 }
 
@@ -420,25 +406,6 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
             replacements.add(m);
         }
         if (catId == MinigameCategoryConstants.BATTLE_MINIGAME && otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-            replacements.add(m);
-        }
-    }
-
-    private static void addBattleFourPlayerReplacements(Minigame m, int catId, int otherCat, List<Minigame> replacements) {
-        if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
-                otherCat == MinigameCategoryConstants.BATTLE_MINIGAME) {
-            replacements.add(m);
-        }
-        if (catId == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME &&
-                otherCat == MinigameCategoryConstants.BATTLE_DUEL_MINIGAME) {
-            replacements.add(m);
-        }
-        if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
-                otherCat == MinigameCategoryConstants.FOUR_PLAYER_MINIGAME) {
-            replacements.add(m);
-        }
-        if (catId == MinigameCategoryConstants.BATTLE_MINIGAME &&
-                otherCat == MinigameCategoryConstants.FOUR_PLAYER_DUEL_MINIGAME) {
             replacements.add(m);
         }
     }
