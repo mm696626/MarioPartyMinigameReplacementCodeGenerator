@@ -597,7 +597,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
                     String categoryName = MinigameCategoryConstants.MINIGAME_CATEGORY_MAP.get(oldMinigame.getCategory());
                     categorizedReplacements
                             .computeIfAbsent(categoryName, k -> new ArrayList<>())
-                            .add("* " + oldMinigame.getName() + " ➜ " + newMinigame.getName());
+                            .add("*" + oldMinigame.getName() + " ➜ " + newMinigame.getName());
                 }
             }
 
