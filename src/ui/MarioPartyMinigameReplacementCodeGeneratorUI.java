@@ -100,7 +100,7 @@ public class MarioPartyMinigameReplacementCodeGeneratorUI extends JFrame impleme
         panel.add(allowAllMinigamesCheckbox, gbc);
 
         gbc.gridy = 9;
-        generateCode = new JButton("Generate");
+        generateCode = new JButton("Generate Code");
         generateCode.addActionListener(this);
         panel.add(generateCode, gbc);
 
